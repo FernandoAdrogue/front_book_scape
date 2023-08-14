@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import styles from "./crearcuenta.module.css"; // Importa los estilos del módulo CSS
+import styles from "./crearcuenta.module.css";
+import { useUsuarioContext } from "@/context/UsuarioContext";
 
 // validaciones
 import useValidacion from "../../hooks/useValidacion";
 import validarCrearCuenta from "../../validacion/validarCrearCuenta";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
+
 
 interface ValidacionErrors {
   [key: string]: string;
@@ -16,6 +20,13 @@ interface UseValidacionProps<T> {
   fn: () => void;
 }
 
+interface Usuario {
+  id: number
+  nombre: string;
+  email: string;
+  password: string;
+}
+
 const STATE_INICIAL = {
   nombre: "",
   email: "",
@@ -24,6 +35,10 @@ const STATE_INICIAL = {
 };
 
 const Crearcuenta = () => {
+
+  const { agregarUsuario } = useUsuarioContext();
+
+  const router = useRouter();
   const [error, guardarError] = useState(false);
 
   const { valores, errores, handleSubmit, handleChange, handleBlur } =
@@ -34,13 +49,23 @@ const Crearcuenta = () => {
     });
 
   const { nombre, email, password, passwordRepetida } = valores;
+  const usuarios: Usuario = {
+    id:0,
+    nombre: nombre,
+    email: email,
+    password: password,
+  }
 
   async function crearCuenta() {
     try {
-      console.log("Creando cuenta...");
+      await axios.post("/api/users/registro", valores);
+      agregarUsuario(usuarios);
+
+      router.push("/login");
+
     } catch (error: any) {
-      console.error("Hubo un error al crear el usuario ", error.message);
-      guardarError(error.message);
+      console.error('Hubo un error al crear el usuario ',error);
+      guardarError(error);
     }
   }
 
@@ -106,9 +131,9 @@ const Crearcuenta = () => {
           />
         </div>
         {errores.passwordRepetida && <p>{errores.passwordRepetida}</p>}
-
         {error && <p>{error} </p>}
-        <input type="submit" value="Crear Cuenta" className={styles.button} />
+
+        <button className={styles.button} type="submit" >Crear Cuenta</button>
       </form>
       <div>
         <p>

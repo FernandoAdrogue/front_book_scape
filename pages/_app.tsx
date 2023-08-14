@@ -5,6 +5,7 @@ import React from "react";
 // import '../styles/globals.css'; // podemos utilizar estilos globales
 import Layout from "@/components/Layout/Layout";
 import { BookProvider } from "@/context/BookContext";
+import { UsuarioProvider } from "@/context/UsuarioContext";
 
 /**
  * Componente raíz de la aplicación.
@@ -15,10 +16,12 @@ import { BookProvider } from "@/context/BookContext";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <BookProvider>
+      <UsuarioProvider> 
       <Layout>
         {/* El componente Layout envuelve cada página */}
         <Component {...pageProps} />
       </Layout>
+      </UsuarioProvider> 
     </BookProvider>
   );
 }

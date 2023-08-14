@@ -1,11 +1,12 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 
 interface ValidacionErrors {
-    nombre?: string;
-    email?: string;
-    password?: string;
-    passwordRepetida?: string;
+  nombre?: string;
+  email?: string;
+  password?: string;
+  passwordRepetida?: string;
 }
+
 
 interface UseValidacionProps<T> {
   stateInicial: T;
@@ -47,6 +48,10 @@ const useValidacion = <T>({
     const erroresValidacion = validar(valores);
     guardarErrores(erroresValidacion);
     guardarSubmitForm(true);
+    // if (Object.keys(erroresValidacion).length === 0) {
+    //   fn(); // Llamar a crearCuenta solo si no hay errores de validación
+    //   guardarValores(stateInicial); // Reiniciar los valores del formulario
+    // }
   };
 
   // cuando se realiza el evento de blur

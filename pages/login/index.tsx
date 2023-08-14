@@ -1,6 +1,16 @@
 import React from "react";
 import styles from "./login.module.css";
 import Link from "next/link";
+
+// validaciones
+import useValidacion from "../../hooks/useValidacion";
+import validarCrearCuenta from "../../validacion/validarCrearCuenta";
+
+const STATE_INICIAL = {
+  email: '',
+  password: ''
+}
+
 const login = () => {
   return (
     <div className={styles.container}>

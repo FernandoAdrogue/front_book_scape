@@ -25,21 +25,23 @@ const CardBook: React.FC<CardBookProps> = ({
 }) => {
   return (
     <div className={styles.imageContainer}>
-    <Link key={id} href={`/detalle/${id}`} className={styles.card}>
+      <Link href={`/detalle/${id}`} className={styles.card}>
         <div>
           <img src={image} alt={title} className={styles.image} />
-         <Rating ratingCount={ratingCount} />
+          <Rating ratingCount={ratingCount} />
         </div>
         <div className={styles.cardContent}>
           <h2 className={styles.title}>{title}</h2>
           <h3 className={styles.cardAuthors}>{authors}</h3>
           <p className={styles.cardPrice}>Price: ${price}</p>
         </div>
-    </Link>
-   
-<Link key={id} href={`/carrito-de-compra/${id}`}>
-          <button className={styles.button} type="button">Comprar</button>
-        </Link>    </div>
+      </Link>
+      <Link href={`/carrito-de-compra/${id}`}>
+        <button className={styles.button} type="button">
+          Comprar
+        </button>
+      </Link>{" "}
+    </div>
   );
 };
 

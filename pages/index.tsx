@@ -3,6 +3,7 @@ import CardsBooks from "@/components/CardsBooks/CardsBooks";
 import styles from "../styles/Home.module.css";
 import { useBookContext } from "@/context/BookContext";
 
+
 function Home() {
   // Utiliza el hook useBookContext para obtener los datos y funciones del contexto
   const { books } = useBookContext();
