@@ -12,6 +12,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (newToken: string, userData: User) => void;
+  rutaLogin: (redirectTo: string ) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
 }
@@ -53,6 +54,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Guardar en el almacenamiento local
     localStorage.setItem("authToken", newToken);
     localStorage.setItem("authUser", JSON.stringify(userData));
+
+  };
+
+  const rutaLogin = (redirectTo: string) => {
+    // Guardar la URL de redirección en localStorage
+    localStorage.setItem('redirectAfterLogin', redirectTo);
   };
 
   // Función para cerrar sesión y eliminar el token y la información del usuario
@@ -76,6 +83,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     logout,
     isAuthenticated,
+    rutaLogin,
   };
 
   return (
