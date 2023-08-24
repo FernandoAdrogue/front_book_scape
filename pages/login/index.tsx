@@ -9,6 +9,8 @@ import useValidacion from "../../hooks/useValidacion";
 import validarIniciarSesion from "../../validacion/validarIniciarSesion";
 import axios from "axios";
 
+import { useAuthContext } from "@/context/AuthContext"; 
+
 const STATE_INICIAL = {
   nombre: "",
   password: "",
@@ -16,6 +18,9 @@ const STATE_INICIAL = {
 
 const login = () => {
   const router = useRouter();
+
+  // Usa el hook useAuthContext para obtener el contexto de autenticación
+  const { login } = useAuthContext();
 
   const [error, guardarError] = useState("");
 
@@ -38,6 +43,8 @@ const login = () => {
 
       console.log(response.data);
       if (response.data.message === "Login succesfully!") {
+        // Llama a la función login del contexto para establecer el usuario y el token
+        login(response.data.token, response.data);
         router.push("/");
 
       }
