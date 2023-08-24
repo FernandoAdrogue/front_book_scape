@@ -6,14 +6,14 @@ import { useBookContext } from "@/context/BookContext";
 import autor from "../public/images/autor.png";
 import Pagination from "@/components/Pagination/Pagination";
 import Filtros from "@/components/Filters/Filters";
- 
+import BooksSlider from "@/components/BookSlider/BookSlider"
 
 function Home() {
   // Utiliza el hook useBookContext para obtener los datos y funciones del contexto
   const { books } = useBookContext();
   const itemsPerPage = 10; // Cambia esto al número de elementos por página
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -26,12 +26,12 @@ function Home() {
     <div className={styles.description}>
       <div className={styles.descriptionIzq}>
         <h3>Consulta por categorias</h3>
-       <Filtros/>       
+        <Filtros />
       </div>
       <div className={styles.descriptionDer}>
         <div>
           <h3 className={styles.h1}>Bienvenidos</h3>
-    
+
           <CardsBooks books={currentBooks} />
           <Pagination
             currentPage={currentPage}
@@ -42,9 +42,7 @@ function Home() {
         <div>
           <h3 className={styles.h1}>Libro Destacado</h3>
         </div>
-        <div className={styles.autor}>
-          <img src={autor.src} alt="autor" />
-        </div>
+        <BooksSlider />
       </div>
     </div>
   );
