@@ -254,9 +254,10 @@ const Filtros: React.FC = () => {
           key={index}
           className={index < rating ? styles.starFilled : styles.star}
         >
-          ★
+          ★ 
         </span>
-      ))}       
+      ))}
+       {" "} o más       
           </label>
           <br/>
         </div>
