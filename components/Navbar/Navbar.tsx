@@ -42,6 +42,9 @@ const Navbar = () => {
             </>
           ) : (
             <>
+            <Link href="/carritoDeCompra" className={styles.Iconos}>
+                Carrito <IoIosCart />
+              </Link>
               <Link href="/login" className={styles.Text}>
                 Identifícate
                 <IoMdPerson />
