@@ -4,13 +4,12 @@ import logo from "../../public/images/BookScapeLogo.png";
 import styles from "../Navbar/NavBar.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { IoIosCart } from "react-icons/io";
-import { IoMdPerson, IoLogoWhatsapp } from "react-icons/io";
+import { IoMdPerson } from "react-icons/io";
 import { useAuthContext } from "@/context/AuthContext";
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuthContext();
 
-  const usuario = true;
   return (
     <nav>
       <div className={styles.liner}>
@@ -26,6 +25,9 @@ const Navbar = () => {
 
           {isAuthenticated() && user ? (
             <>
+            <Link href="/carritoDeCompra" className={styles.Iconos}>
+                Carrito <IoIosCart />
+              </Link>
               <div className={styles.usuario}>
                 <p>Hola {user.username}</p>
                 <button
@@ -36,9 +38,7 @@ const Navbar = () => {
                   Cerrar Sesión
                 </button>
               </div>
-              <Link href="/carritoDeCompra" className={styles.Iconos}>
-                Carrito <IoIosCart />
-              </Link>
+              
             </>
           ) : (
             <>
