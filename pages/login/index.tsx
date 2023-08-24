@@ -9,14 +9,14 @@ import useValidacion from "../../hooks/useValidacion";
 import validarIniciarSesion from "../../validacion/validarIniciarSesion";
 import axios from "axios";
 
-import { useAuthContext } from "@/context/AuthContext"; 
+import { useAuthContext } from "@/context/AuthContext";
 
 const STATE_INICIAL = {
   nombre: "",
   password: "",
 };
 
-const login = () => {
+const Login = () => {
   const router = useRouter();
 
   // Usa el hook useAuthContext para obtener el contexto de autenticación
@@ -39,24 +39,34 @@ const login = () => {
         username: nombre,
         password: password,
       };
-      const response = await axios.post("http://localhost:3001/users/login", nuevoUsuario);
+      const response = await axios.post(
+        "http://localhost:3001/users/login",
+        nuevoUsuario
+      );
 
-      console.log(response.data);
       if (response.data.message === "Login succesfully!") {
         // Llama a la función login del contexto para establecer el usuario y el token
-        login(response.data.token, response.data);
-        router.push("/");
-
+        // Verificar si hay una URL guardada en localStorage
+        const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
+        if (redirectAfterLogin) {
+          // Redirigir al usuario a la URL guardada
+          login(response.data.token, response.data);
+          router.push(redirectAfterLogin);
+          localStorage.removeItem("redirectAfterLogin"); // Borra la URL guardada
+        } else {
+          // Redirigir a una página predeterminada después del inicio de sesión
+          login(response.data.token, response.data);
+          router.push("/"); // Cambia esto por la URL que desees
+        }
       }
 
-      if(response.data === "User not found"){
-        guardarError("Usuario no encontrado")
-      }
-      
-      if(response.data === "Password does not match!"){
-        guardarError("Contraseña incorrecta")
+      if (response.data === "User not found") {
+        guardarError("Usuario no encontrado");
       }
 
+      if (response.data === "Password does not match!") {
+        guardarError("Contraseña incorrecta");
+      }
     } catch (error: any) {
       console.error("Hubo un error al iniciar sesión ", error.response);
       guardarError(
@@ -66,51 +76,61 @@ const login = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <img className={styles.logo2} src={logo2.src} alt="" />
-      <h1>Iniciar sesión</h1>
-      <form onSubmit={handleSubmit} noValidate>
-        <div>
-          <label htmlFor="nombre">Tu nombre</label>
-          <input
-            type="text"
-            id="nombre"
-            placeholder="Nombres y Apellidos"
-            name="nombre"
-            className={styles.input}
-            value={nombre}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        {errores.nombre && <p className={styles.alert}>{errores.nombre}</p>}
-        <div>
-          <label htmlFor="password">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Como mínimo 6 caracteres"
-            name="password"
-            className={styles.input}
-            value={password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        {errores.password && <p className={styles.alert}>{errores.password}</p>}
-
-        {error && <p className={styles.alert}>{error} </p>}
-
-        <button className={styles.button} type="submit">
-          Iniciar sesión
-        </button>
-      </form>
-      <div>¿Eres nuevo en BookScape?</div>
-      <div>
-        <Link href="/crearCuenta">Crea tu cuenta de BookScape</Link>
+    <>
+      <div className={styles.logo1}>
+        <img className={styles.logo2} src={logo2.src} alt="" />
       </div>
-    </div>
+      <div className={styles.container}>
+        <h1>Iniciar sesión</h1>
+        <form onSubmit={handleSubmit} noValidate>
+          <div>
+            <label htmlFor="nombre" style={{ fontWeight: "bold" }}>
+              E-mail o Usuario
+            </label>
+            <input
+              type="text"
+              id="nombre"
+              placeholder="Nombres y Apellidos"
+              name="nombre"
+              className={styles.input}
+              value={nombre}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          {errores.nombre && <p className={styles.alert}>{errores.nombre}</p>}
+          <div>
+            <label htmlFor="password" style={{ fontWeight: "bold" }}>
+              Contraseña
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Como mínimo 6 caracteres"
+              name="password"
+              className={styles.input}
+              value={password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          {errores.password && (
+            <p className={styles.alert}>{errores.password}</p>
+          )}
+
+          {error && <p className={styles.alert}>{error} </p>}
+
+          <button className={styles.button} type="submit">
+            Iniciar sesión
+          </button>
+        </form>
+        <div>¿Eres nuevo en BookScape?</div>
+        <div>
+          <Link href="/crearCuenta">Crea tu cuenta de BookScape</Link>
+        </div>
+      </div>
+    </>
   );
 };
 
-export default login;
+export default Login;
