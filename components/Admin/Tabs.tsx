@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "@/pages/admind/index.module.css";
+import styles from "../../pages/admin/styles.module.css";
 
 type TabsProps = {
   tabs: {
@@ -22,7 +22,7 @@ type TabsProps = {
  * @param orientation Tab orientation Vertical | Horizontal
  */
 const Tabs: FC<TabsProps> = ({
-  className = "tabs-component",
+  className = styles.tabComponent,
   tabs = [],
   selectedTab = 0,
   onClick,
