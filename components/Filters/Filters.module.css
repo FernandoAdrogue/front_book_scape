@@ -12,7 +12,7 @@
 
 .container {
     margin: auto;
-    margin-top: 1;
+    margin-top: 1px;
     max-width: 400px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -79,6 +79,7 @@
   
   .starFilled {
     color: gold;
+    font-size: 18px;
   }
   
   
