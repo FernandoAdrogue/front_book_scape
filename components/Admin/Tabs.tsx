@@ -9,7 +9,7 @@ type TabsProps = {
   }[];
   selectedTab: number;
   onClick: (index: number) => void;
-  orientation?: "horizontal" | "vertical";
+  orientation?: "horizontal" | "horizontal";
   className?: string;
 };
 
@@ -33,7 +33,7 @@ const Tabs: FC<TabsProps> = ({
   return (
     <div
       className={
-        orientation === "vertical" ? className + " vertical" : className
+        orientation === "horizontal" ? className + " horizontal" : className
       }
     >
       <div role="tablist" aria-orientation={orientation}>

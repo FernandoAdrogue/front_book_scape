@@ -49,9 +49,9 @@ export default function Admin() {
         </div>
         <div><h3>Panel de Administrador</h3>
         </div>
-        <div className="styles.liner"> Bienvenido:  aqui puede editar sus preferencias
+        <div className={styles.liner}> Bienvenido:  aqui puede editar sus preferencias
 </div>
-        <div className="styles.menu" ><Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} /></div>
+        <div className={styles.menu} ><Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} /></div>
         <div></div>
         
         
