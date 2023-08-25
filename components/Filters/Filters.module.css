@@ -2,7 +2,7 @@
     width: 90%;
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: 90%;
 
 }
 
@@ -20,7 +20,7 @@
     background-color: #95949431;
     box-shadow: 0 2px 4px rgba(0, 234, 255, 0.1);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: auto;
+    height: 98%;
   }
   
   .input {

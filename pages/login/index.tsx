@@ -78,7 +78,8 @@ const Login = () => {
   return (
     <>
       <div className={styles.logo1}>
-        <img className={styles.logo2} src={logo2.src} alt="" />
+      <Link href="/"><img className={styles.logo2} src={logo2.src} alt="" /></Link>
+        
       </div>
       <div className={styles.container}>
         <h1>Iniciar sesión</h1>

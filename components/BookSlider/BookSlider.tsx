@@ -12,7 +12,7 @@ const BooksSlider: React.FC = () => {
 
   // Ordena los libros por calificación promedio en orden descendente
   const sortedBooks = [...books].sort((a, b) => b.rating_ave - a.rating_ave);
-  const topRatedBooks = sortedBooks.slice(0, 5);
+  const topRatedBooks = sortedBooks.slice(0, 10);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -20,7 +20,7 @@ const BooksSlider: React.FC = () => {
     const startInterval = () => {
       interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % topRatedBooks.length);
-      }, 10000); // Cambiar cada 10 segundos
+      }, 3500); // Cambiar cada 10 segundos
     };
 
     const stopInterval = () => {
@@ -48,8 +48,7 @@ const BooksSlider: React.FC = () => {
 
   return (
     <div className={styles.topratedbooksslider}>
-      <h2>Libros Destacados</h2>
-      <div className={styles.slider}>
+       <div className={styles.slider} >
         {topRatedBooks
           .slice(currentIndex, currentIndex + 5)
           .map((book, index) => (
@@ -57,32 +56,31 @@ const BooksSlider: React.FC = () => {
               key={book.id_book}
               className={`${styles.slideritem} ${
                 index === 0 ? styles.active : ""
-              }`}
+              }`}           
             >
-              <img src={book.image} alt={book.title} className={styles.image} />
-              <Rating rating_ave={book.rating_ave} />
-              <h3>{book.title}</h3>
-              <p>Calificación Promedio: {book.rating_ave}</p>
-              <p>{book.description}</p>
+              <div className={styles.contenedor} > 
+                  <div className={styles.izq} >
+                      <img src={book.image} alt={book.title} className={styles.image}  />
+                  </div>
+                  <div className={styles.der} >   
+                      <h3>{book.title}</h3>
+                      <Rating rating_ave={book.rating_ave} />
+                      {book.Authors.map((obj:any, index:any) => (
+                       <div key={index}>{obj.name}</div>
+                          ))}
+                      <p>Calificación Promedio: {book.rating_ave}</p>
+                 <div>            
               {isAuthenticated() && user ? (
-              <>
-                <Link href={"http://mpago.li/2NZfEab"}>
-                  <button
-                    data-preference-id="97116827-f207eb10-4eb8-4fc2-b6b4-2836e6ad3aa8"
-                    className={styles.button}
-                    type="button"
-                  >
-                    Comprar
-                  </button>
-                  <br />
-                </Link>
-              </>
+              <></>
             ) : <Link href={"/login"}>
             <button className={styles.button} type="button" onClick={() => rutaLogin("http://mpago.li/2NZfEab")}>
               Comprar
             </button>
             <br />
-          </Link>}
+          </Link>}</div>
+                  </div>
+                </div>
+             
             </div>
           ))}
       </div>
@@ -92,16 +90,17 @@ const BooksSlider: React.FC = () => {
           onClick={goToPreviousBook}
           disabled={currentIndex === 0}
         >
-          &lt; Anterior
+          &lt; 
         </button>
         <button
           className={styles.sliderButton}
           onClick={goToNextBook}
           disabled={currentIndex === topRatedBooks.length - 1}
         >
-          Siguiente &gt;
+           &gt;
         </button>
       </div>
+      
     </div>
   );
 };
