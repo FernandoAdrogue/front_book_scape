@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./CardBook.module.css";
 import Link from "next/link";
 import Rating from "../Rating/Rating";
+import { CldImage } from 'next-cloudinary';
 
 type Author = {
   name: string;
