@@ -3,7 +3,6 @@ import { useState } from "react";
 import CardsBooks from "@/components/CardsBooks/CardsBooks";
 import styles from "../styles/Home.module.css";
 import { useBookContext } from "@/context/BookContext";
-import autor from "../public/images/autor.png";
 import Pagination from "@/components/Pagination/Pagination";
 import Filtros from "@/components/Filters/Filters";
 import BooksSlider from "@/components/BookSlider/BookSlider"
