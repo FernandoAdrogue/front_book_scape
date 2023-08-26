@@ -24,11 +24,14 @@ function Home() {
 
   return (
     <div className={styles.description}>
+      
       <div className={styles.descriptionIzq}>
         <h3>Consulta por categorias</h3>
         <Filtros />
       
       </div>
+      
+      
       <div className={styles.descriptionDer}>
         <div>
           <h3 className={styles.h1}>Bienvenidos</h3>

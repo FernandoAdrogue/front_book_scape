@@ -14,7 +14,7 @@ const CarritoDeCompra = () => {
 
   useEffect(() => {
     const calculoTotal = cartItems.reduce(
-      (total, item) => total + item.cantidad * (Number(item.price)),
+      (total, item) => total + item.cantidad * (item.price),
       0
     );
     setTotal(calculoTotal);
@@ -95,7 +95,7 @@ const CarritoDeCompra = () => {
                         $ <span>{item.price}</span>
                       </h3>
                       <h3>
-                        Valor: $ {(Number(item.price) * item.cantidad).toFixed(2)}
+                        Valor: $ {(item.price * item.cantidad).toFixed(2)}
                       </h3>
                     </div>
                     <button
@@ -112,9 +112,9 @@ const CarritoDeCompra = () => {
           </div>
           <aside className={styles.resumen}>
             <div className={styles.oculto}>
-              <h3>Resumen del pedido</h3>
+              <p>Resumen del pedido</p>
             </div>
-            <h2>Total: ${total.toFixed(2)}</h2>
+            <h4>Total: ${total.toFixed(2)}</h4>
             {isAuthenticated() && user ? (
               <>
                 <Link href={"http://mpago.li/2NZfEab"}>

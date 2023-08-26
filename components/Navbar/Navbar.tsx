@@ -6,6 +6,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { IoIosCart } from "react-icons/io";
 import { IoMdPerson } from "react-icons/io";
 import { useAuthContext } from "@/context/AuthContext";
+import salir from "../../public/images/salir.png"
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuthContext();
@@ -29,14 +30,14 @@ const Navbar = () => {
                 Carrito <IoIosCart />
               </Link>
               <div className={styles.usuario}>
-                <p>Hola {user.username}</p>
-                <button
-                  type="button"
-                  onClick={logout}
-                  className={styles.button}
-                >
-                  Cerrar Sesión
-                </button>
+                <p>Hola, {user.username} 
+                <Link href="/userAdmin" className={styles.Iconos}>
+                <IoMdPerson />Mi cuenta
+              </Link>  </p>
+              </div> 
+              <div><Link href="/" onClick={logout} className={styles.salir} >
+                <img src={salir.src} alt="Cerrar Sesión" />
+                </Link>
               </div>
               
             </>
