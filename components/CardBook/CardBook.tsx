@@ -43,7 +43,7 @@ const CardBook: React.FC<CardBookProps> = ({
           <div className={styles.cardContent}>
             <p className={styles.title}>{title}</p>
             <p className={styles.cardAuthors}>{Authors.map((obj:any, index:any) => (
-           <p key={index}>{obj.name}</p>
+           <span key={index}>{obj.name}</span>
               ))}</p>
             <h3 className={styles.cardPrice}>${price}</h3>
           </div>
