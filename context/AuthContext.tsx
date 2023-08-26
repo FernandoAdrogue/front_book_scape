@@ -6,6 +6,9 @@ type User = {
   email: string;
   username: string;
   token: string;
+  shoppingcartId: {
+    cart_id: number; // Cambia 'number' si el tipo real es diferente
+  };
 };
 
 interface AuthContextType {
