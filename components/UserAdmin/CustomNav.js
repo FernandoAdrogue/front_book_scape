@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../components/UserDash/CustomNav.module.css";
+import styles from "./CustomNav.module.css";
 
 const CustomNav = ({ li }) => {
   const [window, setWindow] = useState(false);
