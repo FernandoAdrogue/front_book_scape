@@ -8,6 +8,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import logo2 from "../../public/images/BookScapeLogo.png";
 
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
+const usersUrl = `${bookscapeback}/users`; // Construye la URL completa
+
 const STATE_INICIAL = {
   nombre: "",
   email: "",
@@ -36,7 +39,7 @@ const Crearcuenta = () => {
         password: password,
       };
 
-      await axios.post("http://localhost:3001/users", nuevoUsuario);
+      await axios.post(usersUrl, nuevoUsuario);
 
       router.push("/login");
     } catch (error: any) {
