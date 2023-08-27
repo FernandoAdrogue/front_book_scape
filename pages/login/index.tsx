@@ -11,6 +11,11 @@ import axios from "axios";
 
 import { useAuthContext } from "@/context/AuthContext";
 
+const bookscapeback = process.env.BASE_URL; // Obtiene la URL base del archivo .env.local
+const loginUrl = `${bookscapeback}/users/login`; // Construye la URL completa
+
+
+
 const STATE_INICIAL = {
   nombre: "",
   password: "",
@@ -40,7 +45,7 @@ const Login = () => {
         password: password,
       };
       const response = await axios.post(
-        "http://localhost:3001/users/login",
+        loginUrl,
         nuevoUsuario
       );
 
