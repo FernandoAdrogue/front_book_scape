@@ -12,6 +12,7 @@ import { CartProvider } from "@/context/CartContext";
 import { CartBdProvider } from "@/context/CartBdContext";
 import { FilterProvider } from "@/context/FilterContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { CrudBookProvider } from "@/context/CrudBookContext"
 /**
  * Componente raíz de la aplicación.
  * Envuelve cada página con el componente Layout para proporcionar una estructura común.
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <BookProvider>
+      <CrudBookProvider>
       <UsuarioProvider>
         <AuthProvider>
           <CartProvider>
@@ -44,6 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </CartProvider>
         </AuthProvider>
       </UsuarioProvider>
+      </CrudBookProvider>
     </BookProvider>
   );
 }
