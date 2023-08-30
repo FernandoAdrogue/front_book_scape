@@ -4,23 +4,40 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { Icon } from "semantic-ui-react";
 
-// Crear el contexto de la API de eliminación de libros
-type Authors = {
+
+// Definición del tipo de objeto "Book"
+type Author = {
   name: string;
+  // Agrega otras propiedades si es necesario
 };
 
-type NewBookData = {
+type Tags = {
+  name: string;
+  // Agrega otras propiedades si es necesario
+};
+
+type Book = {
+  id_book: number;
   title: string;
+  Authors: Author[];
   published_date: number;
   price: number;
+  description: string;
+  rating_ave: number;
   image: string;
-  Authors: Authors[];
+  page_count: number;
+  Tags: Tags[];
+  Language: string;
 };
+
 
 interface CrudBookContextType {
   deleteBook: (id_book: number) => Promise<void>;
-  newBook: (bookNew: NewBookData) => void;
-  errorNewBook: boolean
+  newBook: (bookNew: Book) => void;
+  editBooks: (editBook: Book) => void;
+  errorNewBook: boolean;
+  setEditarBook: React.Dispatch<React.SetStateAction<Book | null>>;
+  editarBook: Book | null;
 }
 
 type CrudBookProviderProps = {
@@ -48,9 +65,11 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
 }) => {
   const { books, setBooks } = useBookContext();
   const [errorNewBook, setErrorNewBook] = useState(false)
+  // obtener el libro que vamos a editar
+  const [editarBook, setEditarBook] = useState<Book | null>(null);
 
   // Agregar Libros
-  const newBook = (bookNew: NewBookData) => {
+  const newBook = (bookNew: Book) => {
     try {
       // insertar en la base de datos
       console.log("Agregando a la base de datos");
@@ -74,6 +93,7 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
       });
     }
   };
+
   // Eliminar Libros
   const deleteBook = async (id_book: number) => {
     try {
@@ -94,10 +114,28 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
     }
   };
 
+  // editar libros
+  const editBooks = (editBook: Book) => {
+      try {
+        console.log(`Editar libros ${editBook.title}`);
+        // mandar el producto editado a la api
+
+        const librosEditados = books.map((book) => book.id_book === editBook.id_book ? book = editBook : book );
+        
+        setBooks(librosEditados)
+      } catch (error) {
+        
+      }
+  }
+
+
   const CrudBookContextValue: CrudBookContextType = {
     deleteBook,
     newBook,
     errorNewBook,
+    setEditarBook,
+    editarBook,
+    editBooks,
   };
 
   return (
