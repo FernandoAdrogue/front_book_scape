@@ -8,10 +8,13 @@ import styles from "../styles.module.css";
 import { useBookContext } from "@/context/BookContext";
 import { useCrudBookContext } from "@/context/CrudBookContext";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
+
 
 const TabLibros: FC<{}> = () => {
   const { books } = useBookContext();
-  const { deleteBook } = useCrudBookContext();
+  const { deleteBook, setEditarBook } = useCrudBookContext();
+  const router = useRouter();
 
   // Confirmar si desea eliminarlo
   const confirmarEliminarLibro = (id: any) => {
@@ -24,7 +27,7 @@ const TabLibros: FC<{}> = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, eliminar!",
-      cancelButtonText: "Cancelar"
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         // pasar a eliminarlo
@@ -33,8 +36,14 @@ const TabLibros: FC<{}> = () => {
     });
   };
 
+  // Función para realizar una redirección
+  const handleRedireccionar = (book: any) => {
+    setEditarBook(book)
+    router.push(`/editarLibro/${book.id_book}`);
+  };
+
   return (
-    <Fragment>
+    <Fragment>   
       <div className={styles.contenedor}>
         <div className={styles.titulo}>
           <h2>
@@ -80,37 +89,43 @@ const TabLibros: FC<{}> = () => {
               </tr>
             </thead>
             <tbody>
-              {books.length === 0 ? "No hay Libros disponibles": (books.map((book, index) => (
-                <tr key={index}>
-                  <td>
-                    <input type="checkbox" name="" id="" />
-                  </td>
-                  <td className={styles.libro}>
-                    <img src={book.image} alt={book.title} />
-                  </td>
-                  <td>{book.title}</td>
-                  <td>
-                    {book.Authors.map((obj: any, index: any) => (
-                      <span key={index}>{obj.name}</span>
-                    ))}
-                  </td>
-                  <td>${book.price}</td>
-                  <td>{book.published_date}</td>
-                  <td className={styles.selectores}>
-                    <Link href="/editarLibro/">
-                      <img src={modify.src} alt="Modificar" />
-                    </Link>
-                  </td>
-                  <td className={styles.selectores}>
-                    <button
-                      className={styles.deletebutton}
-                      onClick={() => confirmarEliminarLibro(book.id_book)}
-                    >
-                      <img src={del.src} alt="Eliminar" />
-                    </button>
-                  </td>
-                </tr>
-              )))}
+              {books.length === 0
+                ? "No hay Libros disponibles"
+                : books.map((book, index) => (
+                    <tr key={index}>
+                      <td>
+                        <input type="checkbox" name="" id="" />
+                      </td>
+                      <td className={styles.libro}>
+                        <img src={book.image} alt={book.title} />
+                      </td>
+                      <td>{book.title}</td>
+                      <td>
+                        {book.Authors.map((obj: any, index: any) => (
+                          <span key={index}>{obj.name}</span>
+                        ))}
+                      </td>
+                      <td>${book.price}</td>
+                      <td>{book.published_date}</td>
+                      <td className={styles.selectores}>
+                        <button
+                          type="button"
+                          onClick={() => handleRedireccionar(book)}
+                          className={styles.deletebutton}
+                        >
+                          <img src={modify.src} alt="Modificar" />
+                        </button>
+                      </td>
+                      <td className={styles.selectores}>
+                        <button
+                          className={styles.deletebutton}
+                          onClick={() => confirmarEliminarLibro(book.id_book)}
+                        >
+                          <img src={del.src} alt="Eliminar" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         </div>

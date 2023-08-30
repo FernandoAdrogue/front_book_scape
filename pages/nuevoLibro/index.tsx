@@ -1,36 +1,59 @@
 import React, { useState } from "react";
 import { useCrudBookContext } from "@/context/CrudBookContext";
+import { useBookContext } from "@/context/BookContext";
 import { useRouter } from "next/router";
 
-type Author = {
-    name: string;
-    // Agrega otras propiedades si es necesario
-  };
-  
-  
 
-type  NuevoLibroData = {
-    title: string;
-    published_date: number;
-    price: number;
-    image: string;
-    Authors: Author[];
-}
+// Definición del tipo de objeto "Book"
+type Author = {
+  name: string;
+  // Agrega otras propiedades si es necesario
+};
+
+type Tags = {
+  name: string;
+  // Agrega otras propiedades si es necesario
+};
+
+type Book = {
+  id_book: number;
+  title: string;
+  Authors: Author[];
+  published_date: number;
+  price: number;
+  description: string;
+  rating_ave: number;
+  image: string;
+  page_count: number;
+  Tags: Tags[];
+  Language: string;
+};
 
 const NuevoLibro = () => {
   const { newBook, errorNewBook } = useCrudBookContext();
+  const { books } = useBookContext();
   const router = useRouter();
  
-  const [nuevoLibroData, setNuevoLibroData] = useState<NuevoLibroData>({
+  const [nuevoLibroData, setNuevoLibroData] = useState<Book>({
+    id_book: books.length + 1, 
     title: "",
     published_date: 0,
+    description: "",
+    rating_ave: 0,
     price: 0,
     image: "",
+    page_count: 0,
     Authors: [
       {
         name: "",
       },
     ],
+    Tags: [
+      {
+        name: "",
+      },
+    ],
+    Language: "",
   });
 
   // Cuando el administrador haga submit
