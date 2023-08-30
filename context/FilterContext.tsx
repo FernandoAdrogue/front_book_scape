@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
-const booksUrl = `${process.env.NEXT_PUBLIC_BOOKSCAPEBACK}/books/`; // Construye la URL completa
+const booksUrl = `${bookscapeback}/books/`; // Construye la URL completa
 const languageUrl = `${bookscapeback}/books/language`; // Construye la URL completa
 const tagsUrl = `${bookscapeback}/books/tags`; // Construye la URL completa
 const authorsUrl = `${bookscapeback}/books/authors`; // Construye la URL completa
