@@ -2,9 +2,12 @@ import React, { createContext, FC, useContext, useState } from "react";
 import { useBookContext } from "@/context/BookContext"; // Importa tu contexto de libros existente
 import Swal from "sweetalert2";
 import axios from "axios";
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 import { Icon } from "semantic-ui-react";
 
-
+type Language = {
+  language: string;
+}
 // Definición del tipo de objeto "Book"
 type Author = {
   name: string;
@@ -27,7 +30,7 @@ type Book = {
   image: string;
   page_count: number;
   Tags: Tags[];
-  Language: string;
+  Language: Language;
 };
 
 
@@ -98,9 +101,7 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
   const deleteBook = async (id_book: number) => {
     try {
       // Lógica para realizar el borrado lógico en la base de datos
-      console.log(
-        `borrando en la base de datos, pasando a false active ${id_book}`
-      );
+     await axios.delete(`${bookscapeback}/books/delete/${id_book}`)
       
       // Recargar la lista de libros después de eliminar
       const bookActualizado = books.filter((book) => book.id_book !== id_book);
@@ -115,16 +116,19 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
   };
 
   // editar libros
-  const editBooks = (editBook: Book) => {
+  const editBooks = async(editBook: Book) => {
       try {
         console.log(`Editar libros ${editBook.title}`);
         // mandar el producto editado a la api
+        await axios.put(`${bookscapeback}/books/update/${editBook.id_book}`, editBook)
 
         const librosEditados = books.map((book) => book.id_book === editBook.id_book ? book = editBook : book );
         
-        setBooks(librosEditados)
+        setBooks(librosEditados);
+        Swal.fire("Editado!", "El libro se editó correctamente.", "success");
       } catch (error) {
-        
+        console.error("Error al editar el libro:", error);
+        throw error;
       }
   }
 
