@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./login.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import logo2 from "../../public/images/BookScapeLogo.png";
+import logo2 from '../../public/images/BookScapeLogo.png';
 import LoginGoogle from "../../components/LoginGoogle/LoginGoogle"
 
 // Login de Google
