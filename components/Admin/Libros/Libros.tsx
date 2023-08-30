@@ -10,6 +10,33 @@ import { useCrudBookContext } from "@/context/CrudBookContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 
+type Language = {
+  language: string;
+}
+// Definición del tipo de objeto "Book"
+type Author = {
+  name: string;
+  // Agrega otras propiedades si es necesario
+};
+
+type Tags = {
+  name: string;
+  // Agrega otras propiedades si es necesario
+};
+
+type Book = {
+  id_book: number;
+  title: string;
+  Authors: Author[];
+  published_date: number;
+  price: number;
+  description: string;
+  rating_ave: number;
+  image: string;
+  page_count: number;
+  Tags: Tags[];
+  Language: Language;
+};
 
 const TabLibros: FC<{}> = () => {
   const { books } = useBookContext();
@@ -37,13 +64,45 @@ const TabLibros: FC<{}> = () => {
   };
 
   // Función para realizar una redirección
-  const handleRedireccionar = (book: any) => {
-    setEditarBook(book)
-    router.push(`/editarLibro/${book.id_book}`);
+  const handleRedireccionar = (book: Book) => {
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: `Vas a editar el libro ${book.title} de ${book.Authors.map(
+        (author) => author.name
+      )}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, editar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setEditarBook(book);
+        router.push(`/editarLibro/${book.id_book}`);
+      }
+    });
+  };
+
+  const confirmarAgregarLibro = () => {
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "Vas agregar un nuevo libro",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, agregar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push(`/nuevoLibro`);
+      }
+    });
   };
 
   return (
-    <Fragment>   
+    <Fragment>
       <div className={styles.contenedor}>
         <div className={styles.titulo}>
           <h2>
@@ -58,11 +117,14 @@ const TabLibros: FC<{}> = () => {
         <div className={styles.subTitulo}>
           <p>Busca y modifica las Ordenes de Pedidos </p>
           <div>
-            <Link href="/nuevoLibro">
-              <button className={styles.button} type="submit">
-                Nuevo Libro
-              </button>
-            </Link>
+            <button
+              className={styles.button}
+              type="submit"
+              onClick={() => confirmarAgregarLibro()}
+            >
+              Nuevo Libro
+            </button>
+
             <Link href="/">
               <button className={styles.button} type="submit">
                 Exportar Libros
