@@ -4,6 +4,9 @@ import { useBookContext } from "@/context/BookContext";
 import { useRouter } from "next/router";
 
 
+type Language = {
+  language: string;
+}
 // Definición del tipo de objeto "Book"
 type Author = {
   name: string;
@@ -26,7 +29,7 @@ type Book = {
   image: string;
   page_count: number;
   Tags: Tags[];
-  Language: string;
+  Language: Language;
 };
 
 const NuevoLibro = () => {
@@ -53,7 +56,9 @@ const NuevoLibro = () => {
         name: "",
       },
     ],
-    Language: "",
+    Language: {
+      language: ""
+    },
   });
 
   // Cuando el administrador haga submit
@@ -76,10 +81,10 @@ const NuevoLibro = () => {
       </div>
       <form onSubmit={submitNuevoLibro}>
         <div>
-          <label>Title</label>
+          <label>Titulo</label>
           <input
             type="text"
-            placeholder="Title"
+            placeholder="Titulo"
             name="title"
             value={nuevoLibroData.title}
             onChange={(e) => {
@@ -91,11 +96,11 @@ const NuevoLibro = () => {
           />
         </div>
         <div>
-          <label>Portada</label>
+          <label>Imagen de Portada</label>
           <input
             type="text"
             placeholder="Portada"
-            name="portada"
+            name="image"
             value={nuevoLibroData.image}
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
@@ -130,7 +135,7 @@ const NuevoLibro = () => {
           <input
             type="number"
             placeholder="Precio"
-            name="precio"
+            name="price"
             value={nuevoLibroData.price}
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
@@ -141,11 +146,11 @@ const NuevoLibro = () => {
           />
         </div>
         <div>
-          <label>Fecha</label>
+          <label>Año de publicación</label>
           <input
             type="number"
             placeholder="Año de publicación"
-            name="fecha"
+            name="published_date"
             value={nuevoLibroData.published_date}
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
@@ -155,6 +160,87 @@ const NuevoLibro = () => {
             }}
           />
         </div>
+        <div>
+          <label>Descripción</label>
+          <input
+            type="text"
+            placeholder="descripción"
+            name="description"
+            value={nuevoLibroData.description}
+            onChange={(e) => {
+              setNuevoLibroData((prevData) => ({
+                ...prevData,
+                description: e.target.value,
+              }));
+            }}
+          />
+        </div>
+        <div>
+          <label>Puntuación inicial</label>
+          <input
+            type="number"
+            placeholder="Puntuación"
+            name="rating_ave"
+            value={nuevoLibroData.rating_ave}
+            onChange={(e) => {
+              setNuevoLibroData((prevData) => ({
+                ...prevData,
+                rating_ave: Number(e.target.value),
+              }));
+            }}
+          />
+        </div>
+        <div>
+          <label>Categorías</label>
+          <input
+            type="text"
+            placeholder="Categorías"
+            name="Tags"
+            value={nuevoLibroData.Tags[0] ? nuevoLibroData.Tags[0].name : ""}
+            onChange={(e) => {
+              const newAuthors = [
+                {
+                  name: e.target.value,
+                },
+              ];
+              setNuevoLibroData((prevData) => ({
+                ...prevData,
+                Authors: newAuthors,
+              }));
+            }}
+          />
+        </div>
+        <div>
+          <label>Cantidad de paginas</label>
+          <input
+            type="number"
+            placeholder="Cantidad de paginas"
+            name="page_count"
+            value={nuevoLibroData.page_count}
+            onChange={(e) => {
+              setNuevoLibroData((prevData) => ({
+                ...prevData,
+                page_count: Number(e.target.value),
+              }));
+            }}
+          />
+        </div>
+        <div>
+          <label>Lenguaje</label>
+          <input
+            type="text"
+            placeholder="Lenguaje"
+            name="Language"
+            value={nuevoLibroData.Language.language}
+            onChange={(e) => {
+              setNuevoLibroData((prevData) => ({
+                ...prevData,
+                Language: {language: e.target.value},
+              }));
+            }}
+          />
+        </div>
+        
         {/* agregar mas campos */}
         <button type="submit">Agregar Libro</button>
       </form>
