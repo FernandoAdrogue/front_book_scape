@@ -10,9 +10,15 @@ export default function LoginGoogle() {
 
     }
 
-    function handleSuccess(credentialResponse: CredentialResponse) {
+    async function handleSuccess(credentialResponse: CredentialResponse) {
         console.log("credentialResponse", credentialResponse);
         if (credentialResponse.credential) {
+            const response = await fetch("Colocar ruta aqui", {
+                method: "POST",
+                body: JSON.stringify({
+                    token: credentialResponse.credential
+                })
+            });
             const { payload } = decodeJwt(credentialResponse.credential)
             console.log("payload credential", payload);
             setNombre(payload.nombre);
