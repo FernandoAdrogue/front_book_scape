@@ -7,3 +7,4 @@ export default function decodeJwt(token: string) {
     const payload = JSON.parse(atob(parts[1]));
     return {header, payload}
 }
+
