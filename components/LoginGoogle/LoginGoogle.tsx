@@ -30,5 +30,4 @@ export default function LoginGoogle() {
             {nombre === null && <GoogleLogin useOneTap onError={handleError} onSuccess={handleSuccess} />}
             {nombre && <p>El usuario se ha iniciado sesion: {nombre}</p>}
         </div>
-    )
-}
+    )}
