@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, useState } from "react";
 import libros from "../../../public/images/🦆 icon _categories major_.png";
 import modify from "../../../public/images/🦆 icon _Pen Square_.png";
 import del from "../../../public/images/🦆 icon _Times Circle_.png";
@@ -9,10 +9,11 @@ import { useBookContext } from "@/context/BookContext";
 import { useCrudBookContext } from "@/context/CrudBookContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import NuevoLibro from "@/pages/nuevoLibro";
 
 type Language = {
   language: string;
-}
+};
 // Definición del tipo de objeto "Book"
 type Author = {
   name: string;
@@ -26,6 +27,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -42,6 +44,7 @@ const TabLibros: FC<{}> = () => {
   const { books } = useBookContext();
   const { deleteBook, setEditarBook } = useCrudBookContext();
   const router = useRouter();
+
 
   // Confirmar si desea eliminarlo
   const confirmarEliminarLibro = (id: any) => {
@@ -124,7 +127,7 @@ const TabLibros: FC<{}> = () => {
             >
               Nuevo Libro
             </button>
-
+  
             <Link href="/">
               <button className={styles.button} type="submit">
                 Exportar Libros

@@ -5,7 +5,7 @@ import React from "react";
 // import '../styles/globals.css'; // podemos utilizar estilos globales
 import Layout from "@/components/Layout/Layout";
 import { BookProvider } from "@/context/BookContext";
-import { UsuarioProvider } from "@/context/UsuarioContext";
+import { UsuarioProvider } from "@/context/UsuarioCrudContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { CartProvider } from "@/context/CartContext";

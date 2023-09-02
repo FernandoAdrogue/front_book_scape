@@ -2,8 +2,9 @@ import React, { createContext, FC, useContext, useState } from "react";
 import { useBookContext } from "@/context/BookContext"; // Importa tu contexto de libros existente
 import Swal from "sweetalert2";
 import axios from "axios";
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 import { Icon } from "semantic-ui-react";
+
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
 type Language = {
   language: string;
@@ -21,6 +22,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -31,6 +33,23 @@ type Book = {
   page_count: number;
   Tags: Tags[];
   Language: Language;
+};
+
+type BookNew = {
+  id_book: number;
+  isbn: number;
+  title: string;
+  authors: string[];
+  published_date: number;
+  price: number;
+  description: string;
+  rating_ave: number;
+  image: string;
+  page_count: number;
+  publisher: string;
+  tags: string[];
+  language: string;
+  url: null;
 };
 
 
@@ -72,23 +91,42 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
   const [editarBook, setEditarBook] = useState<Book | null>(null);
 
   // Agregar Libros
-  const newBook = (bookNew: Book) => {
+  const newBook = async (bookNew: Book) => {
     try {
-      // insertar en la base de datos
-      console.log("Agregando a la base de datos");
-      
+        
+      const bookNewDb: BookNew = {
+        id_book: bookNew.id_book,
+        isbn: bookNew.isbn,
+        title: bookNew.title,
+        authors: bookNew.Authors.map(author => author.name), // Extrae los nombres de los autores
+        published_date: bookNew.published_date,
+        price: bookNew.price,
+        description: bookNew.description,
+        rating_ave: bookNew.rating_ave,
+        image: bookNew.image,
+        page_count: bookNew.page_count,
+        url: null,
+        publisher:"Martin",
+        tags: bookNew.Tags.map(tag => tag.name), // Extrae los nombres de las etiquetas
+        language: bookNew.Language.language,
+      };
+      // Insertar en la base de datos
+      const response = await axios.post(`${bookscapeback}/books`, bookNewDb);
+
+      const newBookWithId = { ...bookNew, id_book: response.data.newBook.id_book };
+
       // Agregar el nuevo libro al estado
-      const updatedBooks = [...books, bookNew];
-    
-      setBooks(updatedBooks); // faltan las demas propiedades del libro
+      const updatedBooks = [...books, newBookWithId];
+      
+      setBooks(updatedBooks);
   
       // Mostrar alerta de éxito
       Swal.fire("¡Agregado!", "El libro se ha agregado correctamente.", "success");
     } catch (error) {
       console.error("Error al agregar el libro:", error);
       setErrorNewBook(true); 
-
-      // Alerta de  error
+      
+      // Alerta de error
       Swal.fire({
         icon: "error",
         title: "Hubo un error",
@@ -96,6 +134,7 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
       });
     }
   };
+  
 
   // Eliminar Libros
   const deleteBook = async (id_book: number) => {
