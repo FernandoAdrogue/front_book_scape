@@ -124,10 +124,9 @@ const TabLibros: FC<{}> = () => {
               className={styles.button}
               type="submit"
               onClick={() => confirmarAgregarLibro()}
-            >
+               >
               Nuevo Libro
             </button>
-  
             <Link href="/">
               <button className={styles.button} type="submit">
                 Exportar Libros
