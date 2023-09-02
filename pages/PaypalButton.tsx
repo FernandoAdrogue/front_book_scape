@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {PayPalButtons} from "@paypal/react-paypal-js";
 interface PaypalButtonInterface {
     totalValue : string
