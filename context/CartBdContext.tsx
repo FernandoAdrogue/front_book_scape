@@ -87,14 +87,14 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
 
         setCartItemsBd(carritoActualizado);
 
-        await axios.put("http://localhost:3001/shoppingcart/add", {
+        await axios.put("https://apibookscape-production.up.railway.app/shoppingcart/add", {
           id_cart: user?.shoppingcartId.cart_id,
           id_book: cart.id_book,
         });
       } else {
         setCartItemsBd([...cartItemsBd, cart]);
 
-        await axios.put("http://localhost:3001/shoppingcart/add", {
+        await axios.put("https://apibookscape-production.up.railway.app/shoppingcart/add", {
           id_cart: user?.shoppingcartId.cart_id,
           id_book: cart.id_book,
         });
@@ -107,7 +107,7 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
   const eliminarProductoBd = async (id: number): Promise<void> => {
     try {
       if (user) {
-        const response = await axios.delete("http://localhost:3001/shoppingcart/remove", {
+        const response = await axios.delete("https://apibookscape-production.up.railway.app/shoppingcart/remove", {
           data: {
             id_cart: user.shoppingcartId.cart_id,
             id_book: id,
