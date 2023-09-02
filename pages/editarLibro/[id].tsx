@@ -3,6 +3,7 @@ import { useCrudBookContext } from "@/context/CrudBookContext";
 import { useRouter } from "next/router";
 
 // Definición del tipo de objeto "Book"
+
 type Language = {
   language: string;
 }
@@ -28,6 +29,7 @@ type Book = {
   page_count: number;
   Tags: Tags[];
   Language: Language;
+  isbn: number;
 };
 
 const EditarProducto = () => {
@@ -58,6 +60,7 @@ const EditarProducto = () => {
     Language: {
       language: ""
     },
+    isbn: 0
   });
 
   // Llenar el state automáticamente
