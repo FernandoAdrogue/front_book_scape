@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import PaypalButton from "../PaypalButton";
 
 const CheckoutPage: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -47,6 +48,7 @@ const CheckoutPage: React.FC = () => {
       </section>
       <button onClick={handleConfirmOrder}>Confirmar Pedido</button>
       <Link href="/carritoDeCompra">Cancelar</Link>
+      <PaypalButton totalValue={"15"} invoice={"10"}/>
     </div>
   );
 };

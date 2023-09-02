@@ -13,6 +13,8 @@ import { CartBdProvider } from "@/context/CartBdContext";
 import { FilterProvider } from "@/context/FilterContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { CrudBookProvider } from "@/context/CrudBookContext"
+import { PayPalScriptProvider} from "@paypal/react-paypal-js";
+
 /**
  * Componente raíz de la aplicación.
  * Envuelve cada página con el componente Layout para proporcionar una estructura común.
@@ -30,24 +32,30 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <BookProvider>
+    <PayPalScriptProvider
+              options={{
+                "clientId" : "AWe5UPlCecv84aXS92T2MVmucXvCPY-aOqVxV08t480AgwcNItfjpS4rzTDKHJl0Gt3265G2_BNv2k8y"
+              }}
+    >
+      <BookProvider>
       <CrudBookProvider>
       <UsuarioProvider>
         <AuthProvider>
-          <CartProvider>
+        <CartProvider>
           <CartBdProvider>
             <FilterProvider>
               <Layout>
                 {/* El componente Layout envuelve cada página */}
                 <Component {...pageProps} />
               </Layout>
-            </FilterProvider>
+             </FilterProvider>
           </CartBdProvider>
           </CartProvider>
         </AuthProvider>
       </UsuarioProvider>
       </CrudBookProvider>
     </BookProvider>
+    </PayPalScriptProvider>
   );
 }
 
