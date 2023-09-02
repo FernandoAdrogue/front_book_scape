@@ -55,7 +55,17 @@ const Buscar: React.FC = () => {
   const [resultado, guardarResultado] = useState<Book[]>([]);
 
   useEffect(() => {
-    const filteredBooks = books.filter((book: Book) => {
+    /* const filteredBooks = books.filter((book: Book) => {
+      const normalizedTitle = normalizeString(book.title);
+      const authorsMatch = book.Authors.some((author) =>
+        normalizeString(author.name).includes(q)
+      );
+      const tagsMatch = book.Tags.some((tag) =>
+        normalizeString(tag.name).includes(q)
+      );
+      return normalizedTitle.includes(q) || authorsMatch || tagsMatch;
+    }); */
+    const filteredBooks = books.filter((book: Book): book is Book => {
       const normalizedTitle = normalizeString(book.title);
       const authorsMatch = book.Authors.some((author) =>
         normalizeString(author.name).includes(q)
@@ -65,6 +75,7 @@ const Buscar: React.FC = () => {
       );
       return normalizedTitle.includes(q) || authorsMatch || tagsMatch;
     });
+    
     guardarResultado(filteredBooks);
   }, [q, books]);
 
