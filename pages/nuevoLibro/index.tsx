@@ -20,6 +20,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -38,7 +39,8 @@ const NuevoLibro = () => {
   const router = useRouter();
  
   const [nuevoLibroData, setNuevoLibroData] = useState<Book>({
-    id_book: books.length + 1, 
+    id_book: books.length + 1,
+    isbn: 30000000*books.length + 1,
     title: "",
     published_date: 0,
     description: "",
@@ -115,7 +117,7 @@ const NuevoLibro = () => {
           <input
             type="text"
             placeholder="Autor"
-            name="autor"
+            name="Authors"
             value={nuevoLibroData.Authors[0] ? nuevoLibroData.Authors[0].name : ""}
             onChange={(e) => {
               const newAuthors = [
@@ -198,14 +200,14 @@ const NuevoLibro = () => {
             name="Tags"
             value={nuevoLibroData.Tags[0] ? nuevoLibroData.Tags[0].name : ""}
             onChange={(e) => {
-              const newAuthors = [
+              const newTags = [
                 {
                   name: e.target.value,
                 },
               ];
               setNuevoLibroData((prevData) => ({
                 ...prevData,
-                Authors: newAuthors,
+                Tags: newTags,
               }));
             }}
           />
@@ -242,6 +244,7 @@ const NuevoLibro = () => {
         </div>
         
         {/* agregar mas campos */}
+        
         <button type="submit">Agregar Libro</button>
       </form>
       {/* agregarle estilos al error */}

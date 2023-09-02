@@ -83,7 +83,6 @@ const Login = () => {
       ); // Mostrar mensaje de error en el frontend
     }
   }
-
   return (
 
     // <GoogleOAuthProvider clientId="332589329954-m07o8o9o6j0g091mrn8famijis79ook0.apps.googleusercontent.com">
