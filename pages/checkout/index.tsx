@@ -46,7 +46,7 @@ const CheckoutPage: React.FC = () => {
         <h2>Revisar artículos</h2>
         {/* Mostrar lista de artículos seleccionados */}
       </section>
-      <button onClick={handleConfirmOrder}>Confirmar Pedido</button>
+      <button onClick={handleConfirmOrder}>confirmo</button>
       <Link href="/carritoDeCompra">Cancelar</Link>
       <PaypalButton totalValue={"15"} invoice={"10"}/>
     </div>

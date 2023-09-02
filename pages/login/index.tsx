@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import logo2 from "../../public/images/BookScapeLogo.png";
 import LoginGoogle from "../../components/LoginGoogle/LoginGoogle"
 
-// Login de Google
-// import { GoogleOAuthProvider } from '@react-oauth/google';
+//Login de Google
+ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // validaciones
 import useValidacion from "../../hooks/useValidacion";
@@ -86,7 +86,7 @@ const Login = () => {
 
   return (
 
-    // <GoogleOAuthProvider clientId="332589329954-m07o8o9o6j0g091mrn8famijis79ook0.apps.googleusercontent.com">
+     <GoogleOAuthProvider clientId="332589329954-m07o8o9o6j0g091mrn8famijis79ook0.apps.googleusercontent.com">
     <>
       <div className={styles.logo1}>
       <Link href="/"><img className={styles.logo2} src={logo2.src} alt="" /></Link>
@@ -134,7 +134,7 @@ const Login = () => {
           <button className={styles.button} type="submit">
             Iniciar sesión
           </button>
-          {/* <LoginGoogle/> */}
+          <LoginGoogle/> 
         </form>
         <div>¿Eres nuevo en BookScape?</div>
         <div>
@@ -142,7 +142,7 @@ const Login = () => {
         </div>
       </div>
     </>
-    //  </GoogleOAuthProvider>
+      </GoogleOAuthProvider>
   );
 };
 

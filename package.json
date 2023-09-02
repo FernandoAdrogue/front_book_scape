@@ -35,6 +35,7 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "sharp": "^0.32.4",
+    "strapi-provider-upload-cloudinary": "^3.6.11",
     "sweetalert2": "^11.7.27",
     "typescript": "5.1.6"
   },
