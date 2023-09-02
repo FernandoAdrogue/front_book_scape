@@ -88,7 +88,7 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
 
         setCartItemsBd(carritoActualizado);
 
-        await axios.put("https://apibookscape-production.up.railway.app/shoppingcart/add", {
+        await axios.put(`${bookscapeback}/shoppingcart/add`, {
           id_cart: user?.shoppingcartId.cart_id,
           id_book: cart.id_book,
         });
