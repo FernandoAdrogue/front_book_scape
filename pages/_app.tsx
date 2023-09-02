@@ -5,13 +5,14 @@ import React from "react";
 // import '../styles/globals.css'; // podemos utilizar estilos globales
 import Layout from "@/components/Layout/Layout";
 import { BookProvider } from "@/context/BookContext";
-import { UsuarioProvider } from "@/context/UsuarioContext";
+import { UsuarioProvider } from "@/context/UsuarioCrudContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { CartProvider } from "@/context/CartContext";
 import { CartBdProvider } from "@/context/CartBdContext";
 import { FilterProvider } from "@/context/FilterContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { CrudBookProvider } from "@/context/CrudBookContext"
 /**
  * Componente raíz de la aplicación.
  * Envuelve cada página con el componente Layout para proporcionar una estructura común.
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <BookProvider>
+      <CrudBookProvider>
       <UsuarioProvider>
         <AuthProvider>
           <CartProvider>
@@ -44,6 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </CartProvider>
         </AuthProvider>
       </UsuarioProvider>
+      </CrudBookProvider>
     </BookProvider>
   );
 }
