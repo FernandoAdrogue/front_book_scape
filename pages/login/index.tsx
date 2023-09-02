@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./login.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import logo2 from "../../public/images/BookScapeLogo.png";
+import logo2 from '../../public/images/BookScapeLogo.png';
 import LoginGoogle from "../../components/LoginGoogle/LoginGoogle"
 
 //Login de Google
@@ -84,11 +84,11 @@ const Login = () => {
     }
   }
   return (
-
-     <GoogleOAuthProvider clientId="332589329954-m07o8o9o6j0g091mrn8famijis79ook0.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="332589329954-m07o8o9o6j0g091mrn8famijis79ook0.apps.googleusercontent.com">
     <>
       <div className={styles.logo1}>
       <Link href="/"><img className={styles.logo2} src={logo2.src} alt="" /></Link>
+        
       </div>
       <div className={styles.container}>
         <h1>Iniciar sesión</h1>
