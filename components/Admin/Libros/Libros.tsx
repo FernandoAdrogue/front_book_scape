@@ -127,15 +127,8 @@ const TabLibros: FC<{}> = () => {
                >
               Nuevo Libro
             </button>
-<<<<<<< HEAD
-
-            <Link href="/" >
-              <button className={styles.button}>
-=======
-  
             <Link href="/">
               <button className={styles.button} type="submit">
->>>>>>> 153b0060d05051004e3d92b4b3bf714f6294c741
                 Exportar Libros
               </button>
             </Link>
