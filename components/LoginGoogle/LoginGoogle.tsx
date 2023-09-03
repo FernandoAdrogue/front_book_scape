@@ -30,7 +30,7 @@ export default function LoginGoogle() {
 
             const response = await axios.post(`${bookscapeback}/users/googleloggin`, payload)
             
-            onsole.log("esto es response: ", response);
+            console.log("esto es response: ", response);
 
             router.push("/");
         }
@@ -42,7 +42,7 @@ export default function LoginGoogle() {
             {nombre === null && <GoogleLogin useOneTap onError={handleError} onSuccess={handleSuccess} />}
             
             {nombre && <p>El usuario se ha iniciado sesion: {nombre}</p>}
-            
+
         </div>
         )
     }
