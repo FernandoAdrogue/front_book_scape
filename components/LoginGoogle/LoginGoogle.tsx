@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import decodeJwt from './decodeJwt';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'; // Importa useRouter de Next.js
 
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
 export default function LoginGoogle() {
-    
     const [nombre, setNombre] = useState<string | null>(null);
-    const router = useRouter();
+    const router = useRouter(); // Obtiene la instancia de router de Next.js
 
     function handleError() {
         console.log("Falla del login Google");
@@ -17,32 +16,33 @@ export default function LoginGoogle() {
 
     async function handleSuccess(credentialResponse: CredentialResponse) {
         if (credentialResponse.credential) {
-            
             const credenciales = {
                 token: credentialResponse.credential
             }
-
-            const { payload } = decodeJwt(credentialResponse.credential)
-            
+            const { payload } = decodeJwt(credentialResponse.credential);
             setNombre(payload.email);
-
             console.log("esto es payload.email: ", payload.email);
 
-            const response = await axios.post(`${bookscapeback}/users/googleloggin`, payload)
-            
-            console.log("esto es response: ", response);
+            try {
+                const response = await axios.post(`${bookscapeback}/users/googleloggin`, payload);
 
-            router.push("/");
+                // Verifica si la respuesta del servidor es "aprobado" antes de redirigir
+                if (response.data.message === "Login succesfully!") {
+                    // Redirige al usuario a la ruta "/"
+                    router.push("/");
+                } else {
+                    console.log("La respuesta del servidor no fue aprobada");
+                }
+            } catch (error) {
+                console.error("Error al comunicarse con el servidor:", error);
+            }
         }
     }
 
     return ( 
         <div>
-            
             {nombre === null && <GoogleLogin useOneTap onError={handleError} onSuccess={handleSuccess} />}
-            
-            {nombre && <p>El usuario se ha iniciado sesion: {nombre}</p>}
-
+            {nombre && <p>El usuario se ha iniciado sesión: {nombre}</p>}
         </div>
-        )
-    }
+    );
+}
