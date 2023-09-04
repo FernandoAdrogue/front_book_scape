@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const isAuthenticated = () => {
-    return token !== null;
+    return user?.token !== null;
   };
 
   // Creación del objeto "contextValue" con la información del contexto
