@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'; // Importa useRouter de Next.js
 
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
-export default function LoginGoogle() {
+export default function LoginGoogle({ onLogin }) {
     const [nombre, setNombre] = useState<string | null>(null);
     const router = useRouter(); // Obtiene la instancia de router de Next.js
 
@@ -30,6 +30,8 @@ export default function LoginGoogle() {
                 if (response.data.message === "Login succesfully!") {
                     // Redirige al usuario a la ruta "/"
                     router.push("/");
+                    // Llama a la función onLogin para transmitir la información del usuario y el token al componente padre (Login)
+                    onLogin(response.data.token, response.data);
                 } else {
                     console.log("La respuesta del servidor no fue aprobada");
                 }

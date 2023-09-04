@@ -133,7 +133,7 @@ const Login = () => {
           <button className={styles.button} type="submit">
             Iniciar sesión
           </button>
-          <LoginGoogle/> 
+          <LoginGoogle onLogin={(token, userData) => login(token, userData)}/> 
         </form>
         <div>¿Eres nuevo en BookScape?</div>
         <div>
