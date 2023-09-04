@@ -19,7 +19,7 @@ export default function LoginGoogle() {
             const { payload } = decodeJwt(credentialResponse.credential)
             console.log("payload credential", payload);
             setNombre(payload.nombre);
-            const response = await axios.post(`${bookscapeback}/googleloggin`,payload)
+            const response = await axios.post(`${bookscapeback}/users/googleloggin`,payload)
             /*fetch("Colocar ruta aqui", {
                 method: "POST",
                 body: JSON.stringify({
