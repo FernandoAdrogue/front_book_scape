@@ -1,5 +1,3 @@
-# Se hacer roolback a la rama (git reset --hard 630f31ed0d28ccf27db94a7dde44ebcda91767ef)
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

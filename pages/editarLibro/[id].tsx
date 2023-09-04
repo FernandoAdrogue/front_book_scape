@@ -3,7 +3,6 @@ import { useCrudBookContext } from "@/context/CrudBookContext";
 import { useRouter } from "next/router";
 
 // Definición del tipo de objeto "Book"
-
 type Language = {
   language: string;
 }
@@ -19,6 +18,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -29,7 +29,6 @@ type Book = {
   page_count: number;
   Tags: Tags[];
   Language: Language;
-  isbn: number;
 };
 
 const EditarProducto = () => {
@@ -38,32 +37,30 @@ const EditarProducto = () => {
   const { editarBook, editBooks, setEditarBook } = useCrudBookContext();
 
   // Nuevo state de libros
-  // Nuevo state de libros
-const [editBook, setEditBook] = useState<Book>({
-  id_book: 0,
-  title: "",
-  published_date: 0,
-  description: "",
-  rating_ave: 0,
-  price: 0,
-  image: "",
-  page_count: 0,
-  Authors: [
-    {
-      name: "",
+  const [editBook, setEditBook] = useState<Book>({
+    id_book: 0,
+    isbn: 0,
+    title: "",
+    published_date: 0,
+    description: "",
+    rating_ave: 0,
+    price: 0,
+    image: "",
+    page_count: 0,
+    Authors: [
+      {
+        name: "",
+      },
+    ],
+    Tags: [
+      {
+        name: "",
+      },
+    ],
+    Language: {
+      language: ""
     },
-  ],
-  Tags: [
-    {
-      name: "",
-    },
-  ],
-  Language: {
-    language: ""
-  },
-  isbn: 0 // Deja esta definición y elimina la segunda definición de isbn
-});
-
+  });
 
   // Llenar el state automáticamente
   useEffect(() => {
