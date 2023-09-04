@@ -11,6 +11,7 @@ import { useAuthContext } from "@/context/AuthContext";
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
 
 
+
 export default function LoginGoogle() {
     const [nombre, setNombre] = useState<string | null>(null);
     const router = useRouter(); // Obtiene la instancia de router de Next.js
@@ -51,6 +52,7 @@ export default function LoginGoogle() {
             }catch(error){
                 console.error("Error al comunicarse con el servidor:", error);
             }
+
         }
     }
 
