@@ -24,6 +24,11 @@ interface CartContextType {
   agregarCarritoBd: (item: CartItem) => void;
   eliminarProductoBd: (id: number) => void;
   actualizarCantidadBd: (cart: CartItem) => void;
+  setTotalBd: React.Dispatch<React.SetStateAction<number>>;
+  totalBd: number;
+  selectedItems: { [id: string]: boolean }; // Tipo para selectedItems
+  setSelectedItems: React.Dispatch<React.SetStateAction<{ [id: string]: boolean }>>;
+  
 }
 
 const CartBdContext = createContext<CartContextType | undefined>(undefined);
@@ -42,6 +47,10 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
   const { user, isAuthenticated, rutaLogin } = useAuthContext();
   const initialState: CartItem[] = [];
   const [cartItemsBd, setCartItemsBd] = useState<CartItem[]>(initialState);
+  const [totalBd, setTotalBd] = useState(0); 
+  const [selectedItems, setSelectedItems] = useState<{ [id: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     if (isAuthenticated() && user) {
@@ -142,6 +151,10 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
     agregarCarritoBd,
     eliminarProductoBd,
     actualizarCantidadBd,
+    totalBd,
+    setTotalBd,
+    selectedItems,
+    setSelectedItems,
   };
 
   return (
