@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import decodeJwt from './decodeJwt';
+import axios from 'axios';
+
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
 export default function LoginGoogle() {
     const [nombre, setNombre] = useState<string | null>(null);
@@ -13,15 +16,17 @@ export default function LoginGoogle() {
     async function handleSuccess(credentialResponse: CredentialResponse) {
         console.log("credentialResponse", credentialResponse);
         if (credentialResponse.credential) {
-            const response = await fetch("Colocar ruta aqui", {
+            const { payload } = decodeJwt(credentialResponse.credential)
+            console.log("payload credential", payload);
+            setNombre(payload.nombre);
+            const response = await axios.post(`${bookscapeback}/googleloggin`,payload)
+            /*fetch("Colocar ruta aqui", {
                 method: "POST",
                 body: JSON.stringify({
                     token: credentialResponse.credential
                 })
-            });
-            const { payload } = decodeJwt(credentialResponse.credential)
-            console.log("payload credential", payload);
-            setNombre(payload.nombre);
+            });*/
+            console.log("response", response);
         }
     }
 
