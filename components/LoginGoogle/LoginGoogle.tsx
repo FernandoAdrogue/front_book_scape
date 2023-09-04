@@ -28,11 +28,12 @@ export default function LoginGoogle() {
     async function handleSuccess(credentialResponse: CredentialResponse) {
         if (credentialResponse.credential) {
             const { payload } = decodeJwt(credentialResponse.credential)
+            console.log(credentialResponse.credential);
             console.log("payload credential", payload);
             setNombre(payload.email);
             try{
                 const response = await axios.post(`${bookscapeback}/users/googleloggin`,payload)
-                console.log("response", response);
+                console.log("response", response.data);
                 if (response.data.message === "Login succesfully!") {
                     //PRUEBA//
                     setUser(response.data);
