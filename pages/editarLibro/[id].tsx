@@ -19,7 +19,6 @@ type Tags = {
 
 type Book = {
   id_book: number;
-  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
