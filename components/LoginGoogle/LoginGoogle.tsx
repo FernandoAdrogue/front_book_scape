@@ -1,41 +1,50 @@
 import React, { useState } from 'react';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import decodeJwt from './decodeJwt';
+import axios from 'axios';
+import { useRouter } from 'next/router'; // Importa useRouter de Next.js
 
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
-export default function LoginGoogle() {
+export default function LoginGoogle({ onLogin }) {
     const [nombre, setNombre] = useState<string | null>(null);
+    const router = useRouter(); // Obtiene la instancia de router de Next.js
 
     function handleError() {
         console.log("Falla del login Google");
-
     }
 
     async function handleSuccess(credentialResponse: CredentialResponse) {
-        console.log("credentialResponse", credentialResponse);
         if (credentialResponse.credential) {
             const credenciales = {
                 token: credentialResponse.credential
             }
+            const { payload } = decodeJwt(credentialResponse.credential);
+            setNombre(payload.email);
+            console.log("esto es payload.email: ", payload.email);
 
-            const response = await fetch(`${bookscapeback}/users/login`, {
-                method: "POST",
-                body: JSON.stringify (
-                    credenciales
-                )
-            });
-            console.log("esto es response:", response);
-            const { payload } = decodeJwt(credentialResponse.credential)
-            console.log("payload credential", payload);
-            setNombre(payload.nombre);
-            console.log("esto es despues de response:", response);
+            try {
+                const response = await axios.post(`${bookscapeback}/users/googleloggin`, payload);
+
+                // Verifica si la respuesta del servidor es "aprobado" antes de redirigir
+                if (response.data.message === "Login succesfully!") {
+                    // Redirige al usuario a la ruta "/"
+                    router.push("/");
+                    // Llama a la función onLogin para transmitir la información del usuario y el token al componente padre (Login)
+                    onLogin(response.data.token, response.data);
+                } else {
+                    console.log("La respuesta del servidor no fue aprobada");
+                }
+            } catch (error) {
+                console.error("Error al comunicarse con el servidor:", error);
+            }
         }
     }
 
     return ( 
         <div>
             {nombre === null && <GoogleLogin useOneTap onError={handleError} onSuccess={handleSuccess} />}
-            {nombre && <p>El usuario se ha iniciado sesion: {nombre}</p>}
+            {nombre && <p>El usuario se ha iniciado sesión: {nombre}</p>}
         </div>
-    )}
+    );
+}
