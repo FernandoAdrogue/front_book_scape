@@ -18,6 +18,7 @@ interface AuthContextType {
   rutaLogin: (redirectTo: string ) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
+  setUser:React.Dispatch<React.SetStateAction<User | null>>
 }
 
 type AuthProviderProps = {
@@ -76,7 +77,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const isAuthenticated = () => {
-    return token !== null;
+    return user?.token !== null;
   };
 
   // Creación del objeto "contextValue" con la información del contexto
@@ -87,6 +88,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     isAuthenticated,
     rutaLogin,
+    setUser
   };
 
   return (
