@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
 type User = {
   message: string;
@@ -18,6 +19,7 @@ interface AuthContextType {
   rutaLogin: (redirectTo: string ) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
+  setUser: React.Dispatch<React.SetStateAction<User | null> > ;
 }
 
 type AuthProviderProps = {
@@ -25,6 +27,7 @@ type AuthProviderProps = {
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
 
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
@@ -87,6 +90,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     isAuthenticated,
     rutaLogin,
+    setUser,
   };
 
   return (
