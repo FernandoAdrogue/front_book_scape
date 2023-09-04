@@ -3,7 +3,6 @@ import axios from "axios";
 
 
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
-const booksUrl = `${bookscapeback}/books/`; // Construye la URL completa
 
 
 // Definición del tipo de objeto "Book"
@@ -64,7 +63,7 @@ export const BookProvider: React.FC<BookProviderProps> = ({ children }) => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get(booksUrl);
+      const response = await axios.get(`${bookscapeback}/books/`);
       const booksWithRandomRating = response.data.map((book: Book) => ({
         ...book,
         rating_ave:
