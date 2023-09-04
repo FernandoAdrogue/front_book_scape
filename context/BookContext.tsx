@@ -5,9 +5,7 @@ import axios from "axios";
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
 const booksUrl = `${bookscapeback}/books/`; // Construye la URL completa
 
-type Language = {
-  language: string;
-}
+
 // Definición del tipo de objeto "Book"
 type Author = {
   name: string;
@@ -21,7 +19,6 @@ type Tags = {
 
 type Book = {
   id_book: number;
-  isbn:number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -31,7 +28,7 @@ type Book = {
   image: string;
   page_count: number;
   Tags: Tags[];
-  Language: Language;
+  Language: string;
 };
 
 // Definición del tipo de objeto para el contexto "BookContextType"

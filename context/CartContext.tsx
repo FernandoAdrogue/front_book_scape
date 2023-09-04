@@ -41,6 +41,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const { user, isAuthenticated, rutaLogin } = useAuthContext();
   const initialState: CartItem[] = [];
   const [cartItems, setCartItems] = useState<CartItem[]>(initialState);
+  console.log(user);
 
   useEffect(() => {
     if (!user) {
@@ -82,7 +83,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, [user]);
 
+  console.log(cartItems);
   
+
   const agregarCarrito = (cart: CartItem): void => {
     if (cartItems.some((cartState) => cartState.id_book === cart.id_book)) {
       const carritoActualizado = cartItems.map((cartState) => {
