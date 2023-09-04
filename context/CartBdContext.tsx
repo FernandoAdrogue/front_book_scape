@@ -8,7 +8,8 @@ import React, {
 } from "react";
 
 import { useAuthContext } from "@/context/AuthContext";
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
+
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
 
 interface CartItem {
   id_book: number;
@@ -48,7 +49,7 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            `${bookscapeback}/shoppingcart/books/${user.shoppingcartId.cart_id}`
+            `http://localhost:3001/shoppingcart/books/${user.shoppingcartId.cart_id}`
           );
 
           // Agregar la propiedad "cantidad" a cada elemento en el array
@@ -95,7 +96,7 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
       } else {
         setCartItemsBd([...cartItemsBd, cart]);
 
-        await axios.put(`${bookscapeback}/shoppingcart/add`, {
+        await axios.put("http://localhost:3001/shoppingcart/add", {
           id_cart: user?.shoppingcartId.cart_id,
           id_book: cart.id_book,
         });
@@ -108,7 +109,7 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
   const eliminarProductoBd = async (id: number): Promise<void> => {
     try {
       if (user) {
-        const response = await axios.delete(`${bookscapeback}/shoppingcart/remove`, {
+        const response = await axios.delete("http://localhost:3001/shoppingcart/remove", {
           data: {
             id_cart: user.shoppingcartId.cart_id,
             id_book: id,

@@ -1,20 +1,17 @@
 // _app.tsx es un componente especial que se utiliza para personalizar y envolver la aplicación con componentes o lógica global antes de que se rendericen las páginas individuales. Es un componente de nivel superior que se utiliza para realizar configuraciones generales, manejar estado global, aplicar estilos globales y realizar otras acciones comunes en toda la aplicación.
 
-import { AppProps } from "next/app"
+import { AppProps } from "next/app";
 import React from "react";
 // import '../styles/globals.css'; // podemos utilizar estilos globales
 import Layout from "@/components/Layout/Layout";
 import { BookProvider } from "@/context/BookContext";
-import { UsuarioProvider } from "@/context/UsuarioCrudContext";
+import { UsuarioProvider } from "@/context/UsuarioContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { CartProvider } from "@/context/CartContext";
 import { CartBdProvider } from "@/context/CartBdContext";
 import { FilterProvider } from "@/context/FilterContext";
 import { AuthProvider } from "@/context/AuthContext";
-import { CrudBookProvider } from "@/context/CrudBookContext"
-import { PayPalScriptProvider} from "@paypal/react-paypal-js";
-
 /**
  * Componente raíz de la aplicación.
  * Envuelve cada página con el componente Layout para proporcionar una estructura común.
@@ -32,30 +29,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <PayPalScriptProvider
-              options={{
-                "clientId" : "AWe5UPlCecv84aXS92T2MVmucXvCPY-aOqVxV08t480AgwcNItfjpS4rzTDKHJl0Gt3265G2_BNv2k8y"
-              }}
-    >
-      <BookProvider>
-      <CrudBookProvider>
+    <BookProvider>
       <UsuarioProvider>
         <AuthProvider>
-        <CartProvider>
+          <CartProvider>
           <CartBdProvider>
             <FilterProvider>
               <Layout>
                 {/* El componente Layout envuelve cada página */}
                 <Component {...pageProps} />
               </Layout>
-             </FilterProvider>
+            </FilterProvider>
           </CartBdProvider>
           </CartProvider>
         </AuthProvider>
       </UsuarioProvider>
-      </CrudBookProvider>
     </BookProvider>
-    </PayPalScriptProvider>
   );
 }
 

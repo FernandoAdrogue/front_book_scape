@@ -19,6 +19,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -40,6 +41,7 @@ const EditarProducto = () => {
   // Nuevo state de libros
   const [editBook, setEditBook] = useState<Book>({
     id_book: 0,
+    isbn: 0,
     title: "",
     published_date: 0,
     description: "",
