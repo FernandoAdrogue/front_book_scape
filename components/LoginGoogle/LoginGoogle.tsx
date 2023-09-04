@@ -4,6 +4,9 @@ import decodeJwt from './decodeJwt';
 import axios from 'axios';
 import { useRouter } from 'next/router'; // Importa useRouter de Next.js
 
+//Prueba//
+import { useAuthContext } from "@/context/AuthContext";
+//Prueba//
 
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
 
@@ -11,6 +14,10 @@ const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL b
 export default function LoginGoogle() {
     const [nombre, setNombre] = useState<string | null>(null);
     const router = useRouter(); // Obtiene la instancia de router de Next.js
+
+    //Prueba//
+    const { login } = useAuthContext();
+    //Prueba//
 
     function handleError() {
         console.log("Falla del login Google");
@@ -26,6 +33,15 @@ export default function LoginGoogle() {
                 const response = await axios.post(`${bookscapeback}/users/googleloggin`,payload)
                 console.log("response", response);
                 if (response.data.message === "Login succesfully!") {
+                    //PRUEBA//
+                    const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
+                    if(redirectAfterLogin){
+                        login(response.data.token, response.data);
+                        router.push(redirectAfterLogin);
+                        localStorage.removeItem("redirectAfterLogin"); // Borra la URL guardada
+                    }
+                    //PRUEBA//
+
                     // Redirige al usuario a la ruta "/"
                     router.push("/");
                 } else {
