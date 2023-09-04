@@ -38,31 +38,32 @@ const EditarProducto = () => {
   const { editarBook, editBooks, setEditarBook } = useCrudBookContext();
 
   // Nuevo state de libros
-  const [editBook, setEditBook] = useState<Book>({
-    id_book: 0,
-    isbn: 0,
-    title: "",
-    published_date: 0,
-    description: "",
-    rating_ave: 0,
-    price: 0,
-    image: "",
-    page_count: 0,
-    Authors: [
-      {
-        name: "",
-      },
-    ],
-    Tags: [
-      {
-        name: "",
-      },
-    ],
-    Language: {
-      language: ""
+  // Nuevo state de libros
+const [editBook, setEditBook] = useState<Book>({
+  id_book: 0,
+  title: "",
+  published_date: 0,
+  description: "",
+  rating_ave: 0,
+  price: 0,
+  image: "",
+  page_count: 0,
+  Authors: [
+    {
+      name: "",
     },
-    isbn: 0
-  });
+  ],
+  Tags: [
+    {
+      name: "",
+    },
+  ],
+  Language: {
+    language: ""
+  },
+  isbn: 0 // Deja esta definición y elimina la segunda definición de isbn
+});
+
 
   // Llenar el state automáticamente
   useEffect(() => {
