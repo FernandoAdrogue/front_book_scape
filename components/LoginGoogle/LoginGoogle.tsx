@@ -3,7 +3,8 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import decodeJwt from './decodeJwt';
 import axios from 'axios';
 
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
+
 
 export default function LoginGoogle() {
     const [nombre, setNombre] = useState<string | null>(null);
@@ -14,7 +15,6 @@ export default function LoginGoogle() {
     }
 
     async function handleSuccess(credentialResponse: CredentialResponse) {
-        console.log("credentialResponse", credentialResponse);
         if (credentialResponse.credential) {
             const { payload } = decodeJwt(credentialResponse.credential)
             console.log("payload credential", payload);
