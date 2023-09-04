@@ -9,8 +9,6 @@ import React, {
 
 import { useAuthContext } from "@/context/AuthContext";
 
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
-
 interface CartItem {
   id_book: number;
   title: string;
@@ -89,7 +87,7 @@ export const CartBdProvider: React.FC<{ children: ReactNode }> = ({
 
         setCartItemsBd(carritoActualizado);
 
-        await axios.put(`${bookscapeback}/shoppingcart/add`, {
+        await axios.put("http://localhost:3001/shoppingcart/add", {
           id_cart: user?.shoppingcartId.cart_id,
           id_book: cart.id_book,
         });
