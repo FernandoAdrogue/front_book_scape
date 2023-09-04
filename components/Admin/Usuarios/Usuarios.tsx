@@ -77,7 +77,7 @@ const TabUsuarios: FC<{}> = () => {
           <p>Busca y modifica los usuarios </p>
           <Link href="/">
             <button className={styles.button} type="submit">
-              Exportar Usuarios
+              Reparar Usuarios
             </button>
           </Link>
         </div>

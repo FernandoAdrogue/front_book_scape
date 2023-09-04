@@ -44,7 +44,7 @@ const TabLibros: FC<{}> = () => {
   const { books } = useBookContext();
   const { deleteBook, setEditarBook } = useCrudBookContext();
   const router = useRouter();
-
+  const [selectedTab, setSelectedTab] = useState<number>(1);
 
   // Confirmar si desea eliminarlo
   const confirmarEliminarLibro = (id: any) => {
@@ -119,17 +119,17 @@ const TabLibros: FC<{}> = () => {
         </div>
         <div className={styles.subTitulo}>
           <p>Busca y modifica las Ordenes de Pedidos </p>
-          <div>
+          <div className={styles.tabsContainer}>
             <button
               className={styles.button}
               type="submit"
               onClick={() => confirmarAgregarLibro()}
-               >
-              Nuevo Libro
+            >
+              + Nuevo Libro
             </button>
             <Link href="/">
               <button className={styles.button} type="submit">
-                Exportar Libros
+                Recuperar Libros
               </button>
             </Link>
           </div>
