@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useCrudBookContext } from "@/context/CrudBookContext";
 import { useRouter } from "next/router";
-
+import styles from './editar.module.css'
+import Link from "next/link";
+import logo from "../../public/images/BookScapeLogo.png";
 // Definición del tipo de objeto "Book"
 
 type Language = {
@@ -19,6 +21,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -40,6 +43,7 @@ const EditarProducto = () => {
   // Nuevo state de libros
   const [editBook, setEditBook] = useState<Book>({
     id_book: 0,
+    isbn: 0,
     title: "",
     published_date: 0,
     description: "",
@@ -88,9 +92,23 @@ const EditarProducto = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Editar Libro</h2>
+
+    <div className={styles.contenedor}>
+        <div className={styles.liner}>
+          <div className={styles.logo}>
+          <Link href="/">
+            <img src={logo.src} alt="Logo" />
+          </Link>
+        </div>
+        </div>
+        <div><h3>Panel de Administrador</h3>
+        </div>
+        <div className={styles.menu} >
+          
+
+    <div className={styles.container}>
+      <div >
+        <h2>Editar Libro</h2><img src={editBook.image} />
       </div>
       <form onSubmit={submitEditarLibro}>
         <div>
@@ -101,16 +119,18 @@ const EditarProducto = () => {
             name="title"
             value={editBook.title}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
-          <label>Imagen de Portada</label>
+          <label>Imagen</label>
           <input
             type="text"
             placeholder="Portada"
             name="image"
             value={editBook.image}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -121,6 +141,7 @@ const EditarProducto = () => {
             name="Authors"
             value={editBook.Authors[0] ? editBook.Authors[0].name : ""}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -131,6 +152,7 @@ const EditarProducto = () => {
             name="price"
             value={editBook.price}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -141,6 +163,7 @@ const EditarProducto = () => {
             name="published_date"
             value={editBook.published_date}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -151,6 +174,7 @@ const EditarProducto = () => {
             name="description"
             value={editBook.description}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -161,6 +185,7 @@ const EditarProducto = () => {
             name="rating_ave"
             value={editBook.rating_ave}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -171,6 +196,7 @@ const EditarProducto = () => {
             name="Tags"
             value={editBook.Tags[0] ? editBook.Tags[0].name : ""}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -181,6 +207,7 @@ const EditarProducto = () => {
             name="page_count"
             value={editBook.page_count}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         <div>
@@ -191,12 +218,21 @@ const EditarProducto = () => {
             name="Language"
             value={editBook.Language.language}
             onChange={onChangeFormulario}
+            className={styles.input}
           />
         </div>
         {/* agregar mas campos */}
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>
+        <div>Si tiene alguna duda puede contactar al Desarrollador BookScape</div>
+        
+        
+
+      </div>
+
+</div>
+
   );
 };
 
