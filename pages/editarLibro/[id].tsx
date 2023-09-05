@@ -21,7 +21,6 @@ type Tags = {
 
 type Book = {
   id_book: number;
-  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -64,7 +63,7 @@ const EditarProducto = () => {
     Language: {
       language: ""
     },
-    isbn: 0
+    isbn: 0,
   });
 
   // Llenar el state automáticamente
@@ -222,7 +221,7 @@ const EditarProducto = () => {
           />
         </div>
         {/* agregar mas campos */}
-        <button type="submit">Guardar Cambios</button>
+        <button className={styles.button} type="submit">Guardar Cambios</button>
       </form>
     </div>
         <div>Si tiene alguna duda puede contactar al Desarrollador BookScape</div>
