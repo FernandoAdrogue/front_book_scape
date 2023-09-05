@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { useFilterContext } from "@/context/FilterContext";
 
 function SearchBar() {
-  const [busqueda, guardarBusqueda] = useState("");
+
   const router = useRouter();
-  const { aplyFilters } = useFilterContext();
+  const { aplyFilters, guardarBusqueda, busqueda } = useFilterContext();
 
   const buscarProducto = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,13 +14,11 @@ function SearchBar() {
     if (busqueda.trim() === "") {
       if (aplyFilters) {
         router.push({
-          pathname: "/filtrar",
-          query: { q: busqueda },
+          pathname: "/filtrar"
         });
       } else {
         router.push({
           pathname: "/",
-          query: { q: busqueda },
         });
       }
     } else {

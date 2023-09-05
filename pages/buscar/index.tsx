@@ -74,7 +74,7 @@ const Buscar: React.FC = () => {
         return normalizedTitle.includes(q) || authorsMatch || tagsMatch;
       });
       guardarResultado(filteredBooks);
-      setBooksFilters(filteredBooks);
+      
     } else {
       const filteredBooks = books.filter((book) => {
         const normalizedTitle = normalizeString(book.title);
