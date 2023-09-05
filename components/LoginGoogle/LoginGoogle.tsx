@@ -25,7 +25,7 @@ export default function LoginGoogle() {
   const router = useRouter(); // Obtiene la instancia de router de Next.js
 
   //Prueba//
-  const { setUser, user } = useAuthContext();
+  const { setUser, user, login } = useAuthContext();
   //Prueba//
 
   function handleError() {
@@ -59,7 +59,10 @@ export default function LoginGoogle() {
               cart_id: response.data.cartId,
             },
           };
+
           setUser(userLogin);
+          login(userLogin.token, userLogin);
+
           console.log("luego del setUser(response.data); user: ", user);
           // const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
           // if(redirectAfterLogin){;
