@@ -42,7 +42,7 @@ type Book = {
   image: string;
   page_count: number;
   Tags: Tags[];
-  Language: string;
+  Language: Language;
 };
 
 
@@ -54,6 +54,7 @@ type FilterContextType = {
   setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
   applyFilters: () => Promise<void>;
   booksFilters: Book[];
+  setBooksFilters: React.Dispatch<React.SetStateAction<Book[]>>; 
 };
 
 type FilterProviderProps = {
@@ -144,9 +145,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     }
   };
 
-  
-  // const [filteredBooks, setFilteredBooks] = useState(books);
-
   const applyFilters = async () => {
     try {
       const response = await axios.get(filterUrl, {
@@ -179,6 +177,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     setFilters,
     applyFilters,
     booksFilters,
+    setBooksFilters,
   };
 
   return (
