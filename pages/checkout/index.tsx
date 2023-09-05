@@ -6,8 +6,6 @@ import { useCartBdContext } from "@/context/CartBdContext";
 import styles from "./checkout.module.css";
 import pago from "../../public/images/pay.png";
 
-
-
 const CheckoutPage: React.FC = () => {
   const { user, isAuthenticated } = useAuthContext();
   const { cartItemsBd, totalBd, selectedItems, setSelectedItems } =
@@ -47,7 +45,6 @@ const CheckoutPage: React.FC = () => {
   };
 
   return (
-
     <div className={styles.titulo}>
       <h1>Finalizar Compra</h1>
       <div className={styles.contenedor}>
@@ -130,15 +127,11 @@ Para un producto vendido por BookScape.com: Al hacer clic en "Finalizar pedido",
 Todos los productos de este pedido son vendidos por BookScape.com, a menos que se indique lo contrario. 
 <br /> <br />Para más información ver los términos y condiciones aquí
 Podrás devolver mercancía nueva y sin abrir en estado original dentro de los 30 días posteriores a la entrega. 
-<br />Aplican excepciones y restricciones. Consulta la Política de devoluciones de BookScape.com.
-
-¿Necesitas agregar más productos a tu pedido? Continua comprando en la página principal de BookScape.com.</p>
-
+<br />Aplican excepciones y restricciones. Consulta la Política de devoluciones de BookScape.com. ¿Necesitas agregar más productos a tu pedido? Continua comprando en la página principal de BookScape.com.</p>
           </div>
         </div>
         <div className={styles.der}>
           {/* Paso 4: Confirmar Pedido */}
-          
             <div className={styles.botones}>
               <section>
                 <h4>Paso 4: Confirmar Pedido</h4>
@@ -170,94 +163,6 @@ Podrás devolver mercancía nueva y sin abrir en estado original dentro de los 3
           </div>
         </div>
     </div>
-
-    <div className={styles.titulo}><h1>Finalizar Compra</h1>
-     <div className={styles.contenedor}> 
-     <div className={styles.container}>
-      
-      {/* Paso 1: Información del usuario */}
-      <section>
-        <h4>Paso 1: Información del usuario</h4>
-        {editEmail ? (
-          // Si se está editando el correo, muestra un input para la edición
-          <div>
-            <input
-              type="email"
-              placeholder="Correo Electrónico"
-              value={userInfo.email}
-              onChange={(e) =>
-                setUserInfo({
-                  ...userInfo,
-                  email: e.target.value,
-                })
-              }
-            />
-            <button onClick={handleEmailEditSave}>Guardar</button>
-          </div>
-        ) : (
-          // Si no se está editando, muestra el correo como texto
-          <p>
-            Correo Electrónico: {userInfo.email}{" "}
-            <button onClick={() => setEditEmail(true)}>Editar</button>
-          </p>
-        )}
-      </section>
-
-
-      {/* Paso 2: Método de pago */}
-      <section>
-        <h4>Paso 2: Método de Pago</h4>
-        <p>Método de Pago: Paypal</p>
-        {/* Puedes agregar aquí opciones para otros métodos de pago */}
-      </section>
-      </div>
-      <div className={styles.container}>
-      {/* Paso 3: Revisar artículos */}
-      <section>
-        <h4>Paso 3: Revisar los libros</h4>
-        {/* Mostrar lista de libros seleccionados */}
-        {cartItemsBd.map((item) => {
-          if (selectedItems[item.id_book]) {
-            return (
-              <div key={item.id_book} className={styles.card}>
-                <img src={item.image} alt={item.title} />
-              
-              <div> <h5>{item.title}</h5>
-                <p>Cantidad: {item.cantidad}</p>
-                <p>Precio: ${item.price}</p></div> 
-              </div>
-            );
-          }
-        })}
-        
-      </section>
-      </div>
-      {/* Paso 4: Confirmar Pedido */}
-      <div className={styles.container}>
-        <div className={styles.botones}>
-        <section>
-          <h4>Paso 4: Confirmar Pedido</h4>
-          <div >
-            <p>Número de Factura: {invoiceNumber}</p>
-        <p>Total a Pagar: ${totalBd.toFixed(2)}</p>
-            <button className={styles.button} onClick={handleConfirmOrder}>
-              Confirmar Pedido
-            </button>
-          </div>
-          {/* Botones de navegación */}
-          <div>
-            <Link href="/carritoDeCompra">
-              <button className={styles.button2}>Cancelar</button>
-            </Link>
-          </div>{" "}
-        </section>
-      </div>
-      {/* Mostrar el botón de PayPal después de la confirmación */}
-      {confirmed ? (
-        <PaypalButton totalValue={totalBd.toFixed(2)} invoice={invoiceNumber} />
-      ) : null}</div>
-    </div></div>
-
   );
 };
 

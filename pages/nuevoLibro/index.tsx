@@ -181,7 +181,7 @@ const NuevoLibro = () => {
           <label>Descripción</label>
           <input
             className={styles.textarea}
-            type="text-area, "
+            type="text-area"
             placeholder="descripción"
             name="description"
             value={nuevoLibroData.description}

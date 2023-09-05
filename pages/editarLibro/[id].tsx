@@ -5,7 +5,6 @@ import styles from './editar.module.css'
 import Link from "next/link";
 import logo from "../../public/images/BookScapeLogo.png";
 // Definición del tipo de objeto "Book"
-
 type Language = {
   language: string;
 }
@@ -21,6 +20,7 @@ type Tags = {
 
 type Book = {
   id_book: number;
+  isbn: number;
   title: string;
   Authors: Author[];
   published_date: number;
@@ -31,7 +31,6 @@ type Book = {
   page_count: number;
   Tags: Tags[];
   Language: Language;
-  isbn: number;
 };
 
 const EditarProducto = () => {
@@ -63,7 +62,6 @@ const EditarProducto = () => {
     Language: {
       language: ""
     },
-    isbn: 0,
   });
 
   // Llenar el state automáticamente
@@ -103,8 +101,6 @@ const EditarProducto = () => {
         <div><h3>Panel de Administrador</h3>
         </div>
         <div className={styles.menu} >
-          
-
     <div className={styles.container}>
       <div >
         <h2>Editar Libro</h2><img src={editBook.image} />

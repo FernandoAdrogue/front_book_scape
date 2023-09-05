@@ -72,7 +72,7 @@ const CarritoDeCompra = () => {
       [itemId]: !prevSelected[itemId],
     }));
   };
-
+ 
   return (
     <>
       <div>
@@ -120,7 +120,7 @@ const CarritoDeCompra = () => {
                       <div className={styles.imagen}>
                         <input
                           type="checkbox"
-                          checked={selectedItems[item.id_book]}
+                          checked={selectedItems[item.id_book] || false}
                           onChange={() => toggleSelectItem(item.id_book)}
                         />
                         <img src={item.image} alt={item.title} />
@@ -227,7 +227,7 @@ const CarritoDeCompra = () => {
                               cantidad: parseInt(e.target.value),
                             })
                           }
-                          value={item.cantidad}
+                          value={item.cantidad.toString()}
                         >
                           <option value="1">1</option>
                           <option value="2">2</option>
