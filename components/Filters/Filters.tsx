@@ -17,6 +17,9 @@ const Filtros: React.FC = () => {
     uniqueAuthors,
     applyFilters,
     setBooksFilters,
+    booksFilters,
+    aplyFilters,
+    setAplyFilters,
   } = useFilterContext();
 
   const {books} = useBookContext();
@@ -58,8 +61,11 @@ const Filtros: React.FC = () => {
     });
     setBooksFilters(books)
     setResetFilters(true);
-    
+    setAplyFilters(false);
   };
+
+  console.log(booksFilters);
+  
   return (
     <div className={styles.container}>
       {/* Filtros por precio */}

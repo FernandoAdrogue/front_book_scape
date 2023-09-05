@@ -6,11 +6,11 @@ import styles from "../../styles/Home.module.css";
 import autor from "../../public/images/autor.png";
 import Pagination from "@/components/Pagination/Pagination";
 import Filtros from "@/components/Filters/Filters";
-
+import { useBookContext } from "@/context/BookContext";
 
 type Language = {
   language: string;
-}
+};
 
 type Author = {
   name: string;
@@ -49,7 +49,8 @@ const Buscar: React.FC = () => {
   const q = typeof query.q === "string" ? normalizeString(query.q) : "";
 
   // Todos los libros
-  const { booksFilters, setBooksFilters } = useFilterContext();
+  const { booksFilters, setBooksFilters, aplyFilters } = useFilterContext();
+  const { books } = useBookContext();
   const itemsPerPage = 10; // Cambia esto al número de elementos por página
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -60,29 +61,44 @@ const Buscar: React.FC = () => {
   const [resultado, guardarResultado] = useState<Book[]>([]);
 
   useEffect(() => {
-    const filteredBooks = booksFilters.filter((book) => {
-      const normalizedTitle = normalizeString(book.title);
-      const authorsMatch = book.Authors.some((author) =>
-        normalizeString(author.name).includes(q)
-      );
-      const tagsMatch = book.Tags.some((tag) =>
-        normalizeString(tag.name).includes(q)
-      );
-      return normalizedTitle.includes(q) || authorsMatch || tagsMatch;
-    });
-    guardarResultado(filteredBooks);
-    setBooksFilters(filteredBooks)
-  }, []);
-  
+
+    if(aplyFilters){
+      const filteredBooks = booksFilters.filter((book) => {
+        const normalizedTitle = normalizeString(book.title);
+        const authorsMatch = book.Authors.some((author) =>
+          normalizeString(author.name).includes(q)
+        );
+        const tagsMatch = book.Tags.some((tag) =>
+          normalizeString(tag.name).includes(q)
+        );
+        return normalizedTitle.includes(q) || authorsMatch || tagsMatch;
+      });
+      guardarResultado(filteredBooks);
+      setBooksFilters(filteredBooks);
+    } else {
+      const filteredBooks = books.filter((book) => {
+        const normalizedTitle = normalizeString(book.title);
+        const authorsMatch = book.Authors.some((author) =>
+          normalizeString(author.name).includes(q)
+        );
+        const tagsMatch = book.Tags.some((tag) =>
+          normalizeString(tag.name).includes(q)
+        );
+        return normalizedTitle.includes(q) || authorsMatch || tagsMatch;
+      });
+      guardarResultado(filteredBooks);
+    }
+  }, [q]);
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentBooks = resultado.slice(startIndex, endIndex);
-  
+
   return (
     <div className={styles.description}>
       <div className={styles.descriptionIzq}>
         <h3>Consulta por categorias</h3>
-        <Filtros/>
+        <Filtros />
       </div>
       <div className={styles.descriptionDer}>
         <div>

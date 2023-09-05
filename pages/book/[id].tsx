@@ -131,7 +131,8 @@ const DetallesBook = () => {
                     />
                   </div>
                   <div>
-                    <Link href={`/`}>
+                    <Link href={`/filtrar`}>
+
                       <button className={styles.button}>Regresar</button>
                     </Link>
                   </div>
