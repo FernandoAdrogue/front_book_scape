@@ -9,7 +9,6 @@ import { useBookContext } from "@/context/BookContext";
 import { useCrudBookContext } from "@/context/CrudBookContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
-import NuevoLibro from "@/pages/nuevoLibro";
 
 type Language = {
   language: string;
@@ -45,6 +44,7 @@ const TabLibros: FC<{}> = () => {
   const { deleteBook, setEditarBook } = useCrudBookContext();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<number>(1);
+  
 
   // Confirmar si desea eliminarlo
   const confirmarEliminarLibro = (id: any) => {
