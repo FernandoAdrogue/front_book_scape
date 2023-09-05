@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
 
 type User = {
   message: string;
@@ -19,7 +18,7 @@ interface AuthContextType {
   rutaLogin: (redirectTo: string ) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
-  setUser: React.Dispatch<React.SetStateAction<User | null> > ;
+  setUser:React.Dispatch<React.SetStateAction<User | null>>
 }
 
 type AuthProviderProps = {
@@ -90,7 +89,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     isAuthenticated,
     rutaLogin,
-    setUser,
+    setUser
   };
 
   return (
