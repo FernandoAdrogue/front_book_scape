@@ -57,6 +57,8 @@ type FilterContextType = {
   setBooksFilters: React.Dispatch<React.SetStateAction<Book[]>>;
   aplyFilters: boolean;
   setAplyFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  busqueda: string;
+  guardarBusqueda:React.Dispatch<React.SetStateAction<string>>;
 };
 
 type FilterProviderProps = {
@@ -78,6 +80,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
   const [booksFilters, setBooksFilters] = useState<Book[]>([]);
   const [aplyFilters, setAplyFilters] = useState(false);
+  const [busqueda, guardarBusqueda] = useState<string>("");
 
   useEffect(() => {
     fetchBooks();
@@ -166,6 +169,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
           page_count:
           book.page_count !== null ? book.page_count : (Math.random() * 200).toFixed(0),
       }));
+            
       setBooksFilters(booksWithRandomRating);
       setAplyFilters(true);
     } catch (error) {
@@ -183,7 +187,9 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     booksFilters,
     setBooksFilters,
     aplyFilters,
-    setAplyFilters
+    setAplyFilters,
+    busqueda,
+    guardarBusqueda,
   };
 
   return (

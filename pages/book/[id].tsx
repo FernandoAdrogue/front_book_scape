@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useCartContext } from "@/context/CartContext";
 import { useCartBdContext } from "@/context/CartBdContext";
 import { useAuthContext } from "@/context/AuthContext";
+import { useFilterContext } from "@/context/FilterContext";
 
 const DetallesBook = () => {
   const { user, isAuthenticated } = useAuthContext();
@@ -20,6 +21,8 @@ const DetallesBook = () => {
 
   const { agregarCarrito } = useCartContext();
   const { agregarCarritoBd } = useCartBdContext();
+
+  const { aplyFilters, busqueda } = useFilterContext();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -81,7 +84,8 @@ const DetallesBook = () => {
       {detallebook ? (
         <div className={styles.container}>
           <div className={styles.izquierda}>
-            <Link href={"/filtrar"}>Regresar</Link>
+            {aplyFilters ? <Link href={"/filtrar"}>Regresar</Link> : <Link href={`/buscar?q=${busqueda}`}>Regresar</Link> }
+            
             <div className={styles.imagen}>
               <img src={detallebook.image} alt={detallebook.title} />
               <Rating rating_ave={detallebook.rating_ave} />
