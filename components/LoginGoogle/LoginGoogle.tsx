@@ -35,18 +35,14 @@ export default function LoginGoogle() {
   async function handleSuccess(credentialResponse: CredentialResponse) {
     if (credentialResponse.credential) {
       const { payload } = decodeJwt(credentialResponse.credential);
-      console.log("payload credential", payload);
 
-      // Guardar el token de acceso en el localStorage
-      localStorage.setItem("accessGoogle", payload);
-
-      setNombre(payload.given_name);
+      setNombre(payload.email);
       try {
         const response = await axios.post(
           `${bookscapeback}/users/googleloggin`,
           payload
         );
-        console.log("response", response.data);
+       
         if (response.data.message === "Login succesfully!") {
           //PRUEBA//
           const userLogin: UserLogin = {
@@ -60,18 +56,8 @@ export default function LoginGoogle() {
             },
           };
 
-          setUser(userLogin);
           login(userLogin.token, userLogin);
-
-          console.log("luego del setUser(response.data); user: ", user);
-          // const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
-          // if(redirectAfterLogin){;
-          //     router.push(redirectAfterLogin);
-          //     localStorage.removeItem("redirectAfterLogin"); // Borra la URL guardada
-          // }
-          //PRUEBA//
-
-          // Redirige al usuario a la ruta "/"
+          
           router.push("/");
         } else {
           console.log("La respuesta del servidor no fue aprobada");
