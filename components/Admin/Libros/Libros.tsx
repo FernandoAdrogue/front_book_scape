@@ -112,10 +112,6 @@ const TabLibros: FC<{}> = () => {
             <img src={libros.src} alt="Logo" />
             Libros
           </h2>
-          <span>
-            <input type="search" name="" id="" className={styles.buscador} />
-            <img src={buscar.src} alt="buscador" />
-          </span>
         </div>
         <div className={styles.subTitulo}>
           <p>Busca y modifica las Ordenes de Pedidos </p>

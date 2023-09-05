@@ -68,11 +68,7 @@ const TabUsuarios: FC<{}> = () => {
             <img src={usuariosImg.src} alt="Logo" />
             Usuarios
           </h2>
-          <span>
-            <input type="search" name="" id="" className={styles.buscador} />
-            <img src={buscar.src} alt="buscador" />
-          </span>
-        </div>
+          </div>
         <div className={styles.subTitulo}>
           <p>Busca y modifica los usuarios </p>
           <Link href="/">
