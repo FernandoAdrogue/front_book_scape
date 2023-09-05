@@ -101,8 +101,6 @@ const EditarProducto = () => {
         <div><h3>Panel de Administrador</h3>
         </div>
         <div className={styles.menu} >
-          
-
     <div className={styles.container}>
       <div >
         <h2>Editar Libro</h2><img src={editBook.image} />
@@ -219,7 +217,7 @@ const EditarProducto = () => {
           />
         </div>
         {/* agregar mas campos */}
-        <button type="submit">Guardar Cambios</button>
+        <button className={styles.button} type="submit">Guardar Cambios</button>
       </form>
     </div>
         <div>Si tiene alguna duda puede contactar al Desarrollador BookScape</div>

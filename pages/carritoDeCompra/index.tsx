@@ -227,7 +227,7 @@ const CarritoDeCompra = () => {
                               cantidad: parseInt(e.target.value),
                             })
                           }
-                          value={item.cantidad}
+                          value={item.cantidad.toString()}
                         >
                           <option value="1">1</option>
                           <option value="2">2</option>
