@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "../carritoDeCompra/carrito.module.css";
 import logo from "../../public/images/carrito.png";
 import React, { useEffect, useState } from "react";
-import pago from "../../public/images/mercadopago.webp";
+import pago from "../../public/images/pay.png";
 import { useAuthContext } from "@/context/AuthContext";
 import { useCartBdContext } from "@/context/CartBdContext";
 import { useCartContext } from "@/context/CartContext";
