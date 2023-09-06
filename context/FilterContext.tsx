@@ -162,7 +162,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         },
       });
 
-      console.log(response.data);
       const booksWithRandomRating = response.data.map((book: Book) => ({
         ...book,
         rating_ave:
@@ -171,7 +170,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
           book.page_count !== null ? book.page_count : (Math.random() * 200).toFixed(0),
       }));
       
-      console.log(booksWithRandomRating);
       setBooksFilters(booksWithRandomRating);
       setAplyFilters(true);
     } catch (error) {
