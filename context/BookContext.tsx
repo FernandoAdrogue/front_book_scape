@@ -70,11 +70,12 @@ export const BookProvider: React.FC<BookProviderProps> = ({ children }) => {
       const response = await axios.get(booksUrl);
       const booksWithRandomRating = response.data.map((book: Book) => ({
         ...book,
-        /* rating_ave:
-          book.rating_ave !== null ? book.rating_ave : (Math.random() * 3 + 4).toFixed(1), */
+        rating_ave:
+          book.rating_ave !== null ? book.rating_ave : (Math.random() * 3 + 4).toFixed(1),
           page_count:
           book.page_count !== null ? book.page_count : (Math.random() * 200).toFixed(0),
       }));
+      
       setBooks(booksWithRandomRating);
     } catch (error) {
       console.error("Error fetching books:", error);
