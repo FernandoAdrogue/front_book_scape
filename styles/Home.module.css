@@ -23,6 +23,9 @@
 }
 .descriptionDer img{
   width: 100%;
+  border-bottom-style: solid;
+  border-bottom-width: 10px;
+  color: rgb(0, 0, 0);
   
  background-color: black;
 
