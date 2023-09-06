@@ -22,15 +22,15 @@ type Book = {
   id_book: number;
   isbn: number;
   title: string;
-  Authors: { name: string }[];
+  Authors: Author[];
   published_date: number;
   price: number;
   description: string;
   rating_ave: number;
   image: string;
   page_count: number;
-  Tags: { name: string }[];
-  Language: { language: string };
+  Tags: Tags[];
+  Language: Language;
 };
 
 const EditarProducto = () => {
@@ -74,14 +74,37 @@ const EditarProducto = () => {
   }, [editarBook]);
 
   // Actualizar un campo específico del formulario
-  const onChangeFormulario = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeFormulario = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    // Actualiza el estado con una copia modificada
-    setEditBook((prevEditBook) => ({
-      ...prevEditBook,
-      [name]: value,
-    }));
+    // Copia profunda del estado actual
+  
+    // Manejo especial para las propiedades Authors, Tags y Language
+    if (name === "Authors") {
+      editBook.Authors[0].name = value;
+      setEditBook((prevEditBook) => ({
+        ...prevEditBook
+      }))
+    } else if (name === "Tags") {
+      editBook.Tags[0].name = value;
+      setEditBook((prevEditBook) => ({
+        ...prevEditBook
+      }))
+    } else if (name === "Language") {
+     editBook.Language.language = value;
+     setEditBook((prevEditBook) => ({
+      ...prevEditBook
+    }))
+    } else {
+      // Para otras propiedades, simplemente actualiza el valor correspondiente
+      setEditBook((prevEditBook) => ({
+        ...prevEditBook,
+        [name]: value,
+      }));
+    }
   };
+  
 
   const submitEditarLibro = (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,17 +195,6 @@ const EditarProducto = () => {
                 placeholder="descripción"
                 name="description"
                 value={editBook.description}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
-            </div>
-            <div>
-              <label>Puntuación inicial</label>
-              <input
-                type="number"
-                placeholder="Puntuación"
-                name="rating_ave"
-                value={editBook.rating_ave}
                 onChange={onChangeFormulario}
                 className={styles.input}
               />

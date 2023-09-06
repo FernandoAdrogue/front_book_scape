@@ -24,47 +24,65 @@ const CarritoDeCompra = () => {
 
   const [total, setTotal] = useState(0);
   const [paymentAttempted, setPaymentAttempted] = useState(false);
+  const [selectedItems2, setSelectedItems2] = useState<{
+    [id: string]: boolean;
+  }>({});
 
   const handlePaymentButtonClick = () => {
     // Verifica si hay libros seleccionados
-    const selectedBooksCount = Object.values(selectedItems).filter(
-      (selected) => selected
-    ).length;
+    if (isAuthenticated()) {
+      const selectedBooksCount = Object.values(selectedItems).filter(
+        (selected) => selected
+      ).length;
 
-    if (selectedBooksCount === 0) {
-      // Si no hay libros seleccionados, marca el intento de pago
-      setPaymentAttempted(true);
-      alert("Selecciona al menos un libro para proceder al pago");
+      if (selectedBooksCount === 0) {
+        // Si no hay libros seleccionados, marca el intento de pago
+        setPaymentAttempted(true);
+        alert("Selecciona al menos un libro para proceder al pago");
+      } else {
+        // Si hay libros seleccionados, procede al pago
+        setPaymentAttempted(false); // Reinicia el estado de intento de pago
+        // Agrega aquí la lógica para proceder al pago
+      }
     } else {
-      // Si hay libros seleccionados, procede al pago
-      setPaymentAttempted(false); // Reinicia el estado de intento de pago
-      // Agrega aquí la lógica para proceder al pago
+      const selectedBooksCount = Object.values(selectedItems2).filter(
+        (selected) => selected
+      ).length;
+
+      if (selectedBooksCount === 0) {
+        // Si no hay libros seleccionados, marca el intento de pago
+        setPaymentAttempted(true);
+        alert("Selecciona al menos un libro para proceder al pago");
+      } else {
+        // Si hay libros seleccionados, procede al pago
+        setPaymentAttempted(false); // Reinicia el estado de intento de pago
+        // Agrega aquí la lógica para proceder al pago
+      }
     }
   };
 
-  if (isAuthenticated()) {
-    useEffect(() => {
-      // Calcular el total solo de los elementos seleccionados
-      const calculoTotal = cartItemsBd.reduce((acc, item) => {
-        if (selectedItems[item.id_book]) {
-          return acc + item.cantidad * item.price;
-        }
-        return acc;
-      }, 0);
-      setTotalBd(calculoTotal);
-    }, [cartItemsBd, selectedItems]);
-  } else {
-    useEffect(() => {
-      // Calcular el total solo de los elementos seleccionados
-      const calculoTotal = cartItems.reduce((acc, item) => {
-        if (selectedItems[item.id_book]) {
-          return acc + item.cantidad * item.price;
-        }
-        return acc;
-      }, 0);
-      setTotal(calculoTotal);
-    }, [cartItems, selectedItems]);
-  }
+  useEffect(() => {
+    // Calcular el total solo de los elementos seleccionados
+    const calculoTotal = cartItemsBd.reduce((acc, item) => {
+      if (selectedItems[item.id_book]) {
+        return acc + item.cantidad * item.price;
+      }
+      return acc;
+    }, 0);
+    setTotalBd(calculoTotal);
+  }, [cartItemsBd, selectedItems]);
+
+  useEffect(() => {
+    // Calcular el total solo de los elementos seleccionados
+    const calculoTotal2 = cartItems.reduce((acc, item) => {
+      if (selectedItems2[item.id_book]) {
+        return acc + item.cantidad * item.price;
+      }
+      return acc;
+    }, 0);
+
+    setTotal(calculoTotal2);
+  }, [cartItems, selectedItems2]);
 
   const toggleSelectItem = (itemId: number) => {
     setSelectedItems((prevSelected) => ({
@@ -72,7 +90,14 @@ const CarritoDeCompra = () => {
       [itemId]: !prevSelected[itemId],
     }));
   };
- 
+
+  const toggleSelectItem2 = (itemId: number) => {
+    setSelectedItems2((prevSelected) => ({
+      ...prevSelected,
+      [itemId]: !prevSelected[itemId],
+    }));
+  };
+
   return (
     <>
       <div>
@@ -114,6 +139,7 @@ const CarritoDeCompra = () => {
                   </p>
                 </div>
               ) : (
+                cartItemsBd &&
                 cartItemsBd.map((item, index) => (
                   <div className={styles.containerCar} key={index}>
                     <div className={styles.containerCar2}>
@@ -127,31 +153,10 @@ const CarritoDeCompra = () => {
                       </div>
                       <div>
                         <h2>{item.title}</h2>
-                        <h3>{item.authors}</h3>
-                        <div>
-                          <h3>Cantidad:</h3>
-                          <select
-                            onChange={(e) =>
-                              actualizarCantidadBd({
-                                id_book: item.id_book,
-                                title: item.title,
-                                price: item.price,
-                                image: item.image,
-                                authors: item.authors,
-                                cantidad: parseInt(e.target.value),
-                              })
-                            }
-                            value={item.cantidad}
-                          >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                          </select>
-                        </div>
                         <h3>
-                          $ <span>{item.price}</span>
+                          {item.Authors && item.Authors.length > 0
+                            ? item.Authors.map((author) => author.name)
+                            : "Sin autores"}
                         </h3>
                         <h3>
                           Valor: $ {(item.price * item.cantidad).toFixed(2)}
@@ -206,39 +211,14 @@ const CarritoDeCompra = () => {
                     <div className={styles.imagen}>
                       <input
                         type="checkbox"
-                        checked={selectedItems[item.id_book]}
-                        onChange={() => toggleSelectItem(item.id_book)}
+                        checked={selectedItems2[item.id_book] || false}
+                        onChange={() => toggleSelectItem2(item.id_book)}
                       />
                       <img src={item.image} alt={item.title} />
                     </div>
                     <div>
                       <h2>{item.title}</h2>
                       <h3>{item.authors}</h3>
-                      <div>
-                        <h3>Cantidad:</h3>
-                        <select
-                          onChange={(e) =>
-                            actualizarCantidad({
-                              id_book: item.id_book,
-                              title: item.title,
-                              price: item.price,
-                              image: item.image,
-                              authors: item.authors,
-                              cantidad: parseInt(e.target.value),
-                            })
-                          }
-                          value={item.cantidad.toString()}
-                        >
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
-                      <h3>
-                        $ <span>{item.price}</span>
-                      </h3>
                       <h3>
                         Valor: $ {(item.price * item.cantidad).toFixed(2)}
                       </h3>
@@ -306,13 +286,13 @@ const CarritoDeCompra = () => {
                       <button
                         className={styles.button}
                         type="button"
-                        onClick={() => rutaLogin(`${bookscapeback}/checkout`)}
+                        onClick={() => rutaLogin("/")}
                       >
                         Proceder al Pago
                       </button>
                       <br />
-                      <br /> <img src={pago.src} alt="Logo" />
                     </Link>
+                    <br /> <img src={pago.src} alt="Logo" />
                   </>
                 )}
               </>

@@ -10,6 +10,7 @@ import React, {
 import { useAuthContext } from "@/context/AuthContext";
 
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; // Obtiene la URL base del archivo .env.local
+
 interface CartItem {
   id_book: number;
   title: string;
@@ -42,6 +43,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const { user, isAuthenticated, rutaLogin } = useAuthContext();
   const initialState: CartItem[] = [];
   const [cartItems, setCartItems] = useState<CartItem[]>(initialState);
+  
 
   useEffect(() => {
     if (!user) {
@@ -124,6 +126,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     agregarCarrito,
     eliminarProducto,
     actualizarCantidad,
+    
   };
 
   return (

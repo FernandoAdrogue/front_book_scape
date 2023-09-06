@@ -10,12 +10,17 @@ import React, {
 import { useAuthContext } from "@/context/AuthContext";
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
+type Author = {
+  name: string;
+  // Agrega otras propiedades si es necesario
+};
+
 interface CartItem {
   id_book: number;
   title: string;
   price: number;
   image: string;
-  authors: string[];
+  Authors: Author[];
   cantidad: number;
 }
 

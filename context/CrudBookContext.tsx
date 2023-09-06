@@ -42,7 +42,6 @@ type BookNew = {
   published_date: number;
   price: number;
   description: string;
-  rating_ave: number;
   image: string;
   page_count: number;
   publisher: string;
@@ -101,7 +100,6 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
         published_date: bookNew.published_date,
         price: bookNew.price,
         description: bookNew.description,
-        rating_ave: bookNew.rating_ave,
         image: bookNew.image,
         page_count: bookNew.page_count,
         url: null,
@@ -157,8 +155,11 @@ export const CrudBookProvider: React.FC<CrudBookProviderProps> = ({
   const editBooks = async(editBook: Book) => {
       try {
         console.log(`Editar libros ${editBook.title}`);
+        const { rating_ave, ...editBookWithoutRating } = editBook;
+        console.log(editBookWithoutRating);
+        
         // mandar el producto editado a la api
-        await axios.put(`${bookscapeback}/books/update/${editBook.id_book}`, editBook)
+        await axios.put(`${bookscapeback}/books/update/${editBook.id_book}`, editBookWithoutRating)
 
         const librosEditados = books.map((book) => book.id_book === editBook.id_book ? book = editBook : book );
         

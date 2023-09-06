@@ -104,13 +104,6 @@ const NuevoLibro = () => {
       newErrors.description = "Introduce una descripción del libro";
     }
 
-    if (
-      nuevoLibroData.rating_ave &&
-      (nuevoLibroData.rating_ave < 0 || nuevoLibroData.rating_ave > 5)
-    ) {
-      newErrors.rating_ave = "La puntuación debe estar entre 0 y 5";
-    }
-
     if (!nuevoLibroData.image) {
       newErrors.image = "Introduce la URL de la imagen de portada";
     }
@@ -120,7 +113,7 @@ const NuevoLibro = () => {
         "La cantidad de páginas debe ser mayor o igual a 0";
     }
 
-    if (nuevoLibroData.Language) {
+    if (!nuevoLibroData.Language) {
       newErrors.Language = "Introduce el lenguaje del libro";
     }
 
@@ -270,27 +263,6 @@ const NuevoLibro = () => {
             />
             {errors.description && (
               <p className={styles.error}>{errors.description}</p>
-            )}
-          </div>
-          <div>
-            <label>Puntuación inicial</label>
-            <input
-              className={styles.input}
-              type="number"
-              placeholder="Puntuación"
-              name="rating_ave"
-              min="0"
-              max="5"
-              value={nuevoLibroData.rating_ave}
-              onChange={(e) => {
-                setNuevoLibroData((prevData) => ({
-                  ...prevData,
-                  rating_ave: Number(e.target.value),
-                }));
-              }}
-            />
-            {errors.rating_ave && (
-              <p className={styles.error}>{errors.rating_ave}</p>
             )}
           </div>
           <div>
