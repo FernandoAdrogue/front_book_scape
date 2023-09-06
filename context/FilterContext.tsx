@@ -120,7 +120,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     fetchAuthors(); 
   }, []);
 
-
   const fetchLanguages = async () => {
     try {
       const response = await axios.get(languageUrl);
@@ -162,6 +161,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
           rating_ave: filters.rating_ave,
         },
       });
+
+      console.log(response.data);
       const booksWithRandomRating = response.data.map((book: Book) => ({
         ...book,
         rating_ave:
@@ -169,7 +170,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
           page_count:
           book.page_count !== null ? book.page_count : (Math.random() * 200).toFixed(0),
       }));
-            
+      
+      console.log(booksWithRandomRating);
       setBooksFilters(booksWithRandomRating);
       setAplyFilters(true);
     } catch (error) {

@@ -48,7 +48,7 @@ const NuevoLibro = () => {
     published_date: 0,
     description: "",
     rating_ave: 0,
-    price: 0,
+    price: 0.0,
     image: "",
     page_count: 0,
     Authors: [
@@ -66,11 +66,31 @@ const NuevoLibro = () => {
     },
   });
 
+  // Función para validar el formulario
+  const isFormValid = () => {
+    return (
+      nuevoLibroData.title.trim() !== "" &&
+      nuevoLibroData.price >= 0 && // Cambiado a >= 0 para no permitir valores negativos
+      nuevoLibroData.published_date >= 0 && // Cambiado a >= 0 para no permitir valores negativos
+      nuevoLibroData.description.trim() !== "" &&
+      nuevoLibroData.rating_ave >= 0 &&
+      nuevoLibroData.image.trim() !== "" &&
+      nuevoLibroData.page_count >= 0 && // Cambiado a >= 0 para no permitir valores negativos
+      nuevoLibroData.Authors[0].name.trim() !== "" &&
+      nuevoLibroData.Tags[0].name.trim() !== "" &&
+      nuevoLibroData.Language.language.trim() !== ""
+    );
+  };
+
   // Cuando el administrador haga submit
   const submitNuevoLibro = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validar formulario
+    if (!isFormValid()) {
+      alert("Por favor, complete todos los campos.");
+      return;
+    }
 
     // Si no hay errores
 
@@ -152,6 +172,7 @@ const NuevoLibro = () => {
             type="number"
             placeholder="Precio"
             name="price"
+            min="0"
             value={nuevoLibroData.price}
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
@@ -169,6 +190,7 @@ const NuevoLibro = () => {
             placeholder="Año de publicación"
             name="published_date"
             value={nuevoLibroData.published_date}
+            min="0"
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
                 ...prevData,
@@ -200,6 +222,8 @@ const NuevoLibro = () => {
             type="number"
             placeholder="Puntuación"
             name="rating_ave"
+            min="0"
+            max="5"
             value={nuevoLibroData.rating_ave}
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
@@ -238,6 +262,7 @@ const NuevoLibro = () => {
             placeholder="Cantidad de paginas"
             name="page_count"
             value={nuevoLibroData.page_count}
+            min="0"
             onChange={(e) => {
               setNuevoLibroData((prevData) => ({
                 ...prevData,
