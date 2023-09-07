@@ -118,50 +118,59 @@ const CheckoutPage: React.FC = () => {
             </section>
           </div>
           <div className={styles.container}>
-          <h2>Total a Pagar: ${totalBd.toFixed(2)}</h2>
+            <h2>Total a Pagar: ${totalBd.toFixed(2)}</h2>
           </div>
-          <div className={styles.politicas}> 
+          <div className={styles.politicas}>
             <p>
-*¿Necesitas ayuda? Consulta nuestra Página de ayuda o contacta con nosotros
-Para un producto vendido por BookScape.com: Al hacer clic en "Finalizar pedido", te enviaremos un e-mail notificándote que hemos recibido tu pedido. El contrato de compra no estará formalizado hasta que te enviemos un mensaje por e-mail notificándote que se ha enviado el producto.
-Todos los productos de este pedido son vendidos por BookScape.com, a menos que se indique lo contrario. 
-<br /> <br />Para más información ver los términos y condiciones aquí
-Podrás devolver mercancía nueva y sin abrir en estado original dentro de los 30 días posteriores a la entrega. 
-<br />Aplican excepciones y restricciones. Consulta la Política de devoluciones de BookScape.com. ¿Necesitas agregar más productos a tu pedido? Continua comprando en la página principal de BookScape.com.</p>
+              *¿Necesitas ayuda? Consulta nuestra Página de ayuda o contacta con
+              nosotros Para un producto vendido por BookScape.com: Al hacer clic
+              en "Finalizar pedido", te enviaremos un e-mail notificándote que
+              hemos recibido tu pedido. El contrato de compra no estará
+              formalizado hasta que te enviemos un mensaje por e-mail
+              notificándote que se ha enviado el producto. Todos los productos
+              de este pedido son vendidos por BookScape.com, a menos que se
+              indique lo contrario.
+              <br /> <br />
+              Para más información ver los términos y condiciones aquí Podrás
+              devolver mercancía nueva y sin abrir en estado original dentro de
+              los 30 días posteriores a la entrega.
+              <br />
+              Aplican excepciones y restricciones. Consulta la Política de
+              devoluciones de BookScape.com. ¿Necesitas agregar más productos a
+              tu pedido? Continua comprando en la página principal de
+              BookScape.com.
+            </p>
           </div>
         </div>
         <div className={styles.der}>
           {/* Paso 4: Confirmar Pedido */}
-            <div className={styles.botones}>
-              <section>
-                <h4>Paso 4: Confirmar Pedido</h4>
-                <div>
-                  <p>Número de Factura: {invoiceNumber}</p>
-                  <h2>Total a Pagar: ${totalBd.toFixed(2)}</h2>
-                  <button
-                    className={styles.button}
-                    onClick={handleConfirmOrder}
-                  >
-                    Confirmar Pedido
-                  </button>
-                </div>
-                {/* Botones de navegación */}
-                <div>
-                  <Link href="/carritoDeCompra">
-                    <button className={styles.button2}>Cancelar</button>
-                  </Link>
-                </div>{" "}
-              </section>
-            </div>
-            {/* Mostrar el botón de PayPal después de la confirmación */}
-            {confirmed ? (
-              <PaypalButton
-                totalValue={totalBd.toFixed(2)}
-                invoice={invoiceNumber}
-              />
-            ) : null}
+          <div className={styles.botones}>
+            <section>
+              <h4>Paso 4: Confirmar Pedido</h4>
+              <div>
+                <p>Número de Factura: {invoiceNumber}</p>
+                <h2>Total a Pagar: ${totalBd.toFixed(2)}</h2>
+                <button className={styles.button} onClick={handleConfirmOrder}>
+                  Confirmar Pedido
+                </button>
+              </div>
+              {/* Botones de navegación */}
+              <div>
+                <Link href="/carritoDeCompra">
+                  <button className={styles.button2}>Cancelar</button>
+                </Link>
+              </div>{" "}
+            </section>
           </div>
+          {/* Mostrar el botón de PayPal después de la confirmación */}
+          {confirmed ? (
+            <PaypalButton
+              totalValue={totalBd.toFixed(2)}
+              invoice={invoiceNumber}
+            />
+          ) : null}
         </div>
+      </div>
     </div>
   );
 };

@@ -75,6 +75,7 @@ export const BookProvider: React.FC<BookProviderProps> = ({ children }) => {
           page_count:
           book.page_count !== null ? book.page_count : (Math.random() * 200).toFixed(0),
       }));
+      
       setBooks(booksWithRandomRating);
     } catch (error) {
       console.error("Error fetching books:", error);

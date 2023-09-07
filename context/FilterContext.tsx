@@ -54,7 +54,11 @@ type FilterContextType = {
   setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
   applyFilters: () => Promise<void>;
   booksFilters: Book[];
-  setBooksFilters: React.Dispatch<React.SetStateAction<Book[]>>; 
+  setBooksFilters: React.Dispatch<React.SetStateAction<Book[]>>;
+  aplyFilters: boolean;
+  setAplyFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  busqueda: string;
+  guardarBusqueda:React.Dispatch<React.SetStateAction<string>>;
 };
 
 type FilterProviderProps = {
@@ -75,6 +79,8 @@ export const useFilterContext = () => {
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
   const [booksFilters, setBooksFilters] = useState<Book[]>([]);
+  const [aplyFilters, setAplyFilters] = useState(false);
+  const [busqueda, guardarBusqueda] = useState<string>("");
 
   useEffect(() => {
     fetchBooks();
@@ -113,7 +119,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     fetchTags();
     fetchAuthors(); 
   }, []);
-
 
   const fetchLanguages = async () => {
     try {
@@ -156,6 +161,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
           rating_ave: filters.rating_ave,
         },
       });
+
       const booksWithRandomRating = response.data.map((book: Book) => ({
         ...book,
         rating_ave:
@@ -163,7 +169,9 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
           page_count:
           book.page_count !== null ? book.page_count : (Math.random() * 200).toFixed(0),
       }));
+      
       setBooksFilters(booksWithRandomRating);
+      setAplyFilters(true);
     } catch (error) {
       console.error("Error applying filters:", error);
     }
@@ -186,6 +194,10 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     applyFilters,
     booksFilters,
     setBooksFilters,
+    aplyFilters,
+    setAplyFilters,
+    busqueda,
+    guardarBusqueda,
   };
 
   return (

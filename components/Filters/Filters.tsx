@@ -17,6 +17,9 @@ const Filtros: React.FC = () => {
     uniqueAuthors,
     applyFilters,
     setBooksFilters,
+    booksFilters,
+    aplyFilters,
+    setAplyFilters,
   } = useFilterContext();
 
   const {books} = useBookContext();
@@ -56,10 +59,12 @@ const Filtros: React.FC = () => {
       selectedAuthors: [],
       rating_ave: 0,
     });
+    
     setBooksFilters(books)
     setResetFilters(true);
-    
+    setAplyFilters(false);
   };
+  
   return (
     <div className={styles.container}>
       {/* Filtros por precio */}
@@ -89,8 +94,8 @@ const Filtros: React.FC = () => {
         onChange={(e) => setFilters({ ...filters, language: e.target.value })}
       >
         <option value="">Todos los idiomas</option>
-        {uniqueLanguages.map((language) => (
-          <option key={language} value={language}>
+        {uniqueLanguages.map((language, index) => (
+          <option key={index} value={language}>
             {languageNames[language]}
           </option>
         ))}

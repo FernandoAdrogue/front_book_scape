@@ -1,6 +1,7 @@
 import React from 'react';
 import {PayPalButtons} from "@paypal/react-paypal-js";
 import axios from "axios";
+import { useAuthContext } from "@/context/AuthContext";
 
 const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
@@ -9,6 +10,9 @@ interface PaypalButtonInterface {
     invoice : string
 }
 const PaypalButton: React.FC<PaypalButtonInterface> = (props) => {
+
+  const {user} = useAuthContext();
+
   return (
       <PayPalButtons
       createOrder={(data, actions) => {
@@ -31,7 +35,8 @@ const PaypalButton: React.FC<PaypalButtonInterface> = (props) => {
        const orderResponse = await axios.post(`${bookscapeback}/orders`, 
         {
           orden: order,
-          factura: props.invoice
+          factura: props.invoice,
+          id: user?.id,
         })
        console.log("orderResponse", orderResponse)
       }
