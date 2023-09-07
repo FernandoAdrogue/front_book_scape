@@ -20,7 +20,7 @@ interface CartItem {
   title: string;
   price: number;
   image: string;
-  Authors: Author[];
+  authors: string[];
   cantidad: number;
 }
 
