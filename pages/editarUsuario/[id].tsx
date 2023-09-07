@@ -49,12 +49,6 @@ const EditarUsuario = () => {
       newErrors.email = "El correo electrónico es obligatorio";
     }
 
-    // validar el password
-  if (!editarUsuario?.newPassword) {
-    newErrors.newPassword = "El password es obligatorio";
-  } else if (editarUsuario.newPassword.length < 6) {
-    newErrors.newPassword = "Se requiere un mínimo de 6 caracteres";
-  }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Devuelve true si no hay errores
@@ -106,7 +100,7 @@ const EditarUsuario = () => {
             value={editUsuario.newPassword}
             onChange={onChangeFormulario}
           />
-          {errors.newPassword && <p className={styles.error}>{errors.newPassword}</p>}
+          
         </div>
         <div>
           <label>Correo Electrónico</label>
