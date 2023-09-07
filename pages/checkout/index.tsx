@@ -7,7 +7,7 @@ import styles from "./checkout.module.css";
 import pago from "../../public/images/pay.png";
 
 const CheckoutPage: React.FC = () => {
-  const { user, isAuthenticated } = useAuthContext();
+  const { user, isAuthenticated() } = useAuthContext();
   const { cartItemsBd, totalBd, selectedItems, setSelectedItems } =
     useCartBdContext();
 

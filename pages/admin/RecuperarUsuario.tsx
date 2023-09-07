@@ -11,47 +11,51 @@ import modify from "../../public/images/🦆 icon _Pen Square_.png";
 import del from "../../public/images/🦆 icon _Times Circle_.png";
 import styles from "../../components/Admin/styles.module.css";
 import axios from "axios";
+import { useUsuarioContext } from "@/context/UsuarioCrudContext";
 
-const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK; 
+const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 
-
-type Book = {
-  id_book: number;
-  title: string;
-  price: number;
+interface Usuario {
+  id: string;
+  username: string;
+  email: string;
   deletedAt: string;
-  image: string;
-};
+}
 
-const RecuperarLibro = () => {
-  const { books } = useBookContext();
+const RecuperarUsuario = () => {
+  const { usuarios, deleteUsuario, setEditarUsuario } = useUsuarioContext();
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState<number>(1);
-  const [booksEliminados, setBooksEliminados] = useState<Book[]>([]);
+  const [usuarioEliminados, setUsuarioEliminados] = useState<Usuario[]>([]);
 
-  const recuperarBook = async (id_book: number) => {
+  const recuperarUsuario = async (id: string) => {
     try {
       // Lógica para realizar el borrado lógico en la base de datos
-     await axios.put(`${bookscapeback}/books/restore/${id_book}`)
-      
+      await axios.put(`${bookscapeback}/users/restore/${id}`);
+
       // Recargar la lista de libros después de eliminar
-      const bookActualizado = booksEliminados.filter((book) => book.id_book !== id_book);
-      setBooksEliminados(bookActualizado);
+      const bookActualizado = usuarioEliminados.filter(
+        (usuario) => usuario.id !== id
+      );
+      setUsuarioEliminados(bookActualizado);
 
       // Si se elimina, mostrar alerta
-      Swal.fire("ERecuperado!", "El libro se recuperó correctamente.", "success");
+      Swal.fire(
+        "Recuperado!",
+        "El usuario se recuperó correctamente.",
+        "success"
+      );
     } catch (error) {
-      console.error("Error al recuperar el libro:", error);
+      console.error("Error al recuperar el usuario:", error);
       throw error;
     }
   };
- 
+
   // Confirmar si desea eliminarlo
-  const confirmarRecuperarLibro = (id: any) => {
+  const confirmarRecuperarUsuario = (id: any) => {
     // preguntar al usuario
     Swal.fire({
       title: "¿Estas seguro?",
-      text: "Un libro que se recupera, estar disponible a la venta",
+      text: "Un usuario que se recupera, estar disponible para comprar",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -61,33 +65,32 @@ const RecuperarLibro = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // pasar a eliminarlo
-        recuperarBook(id);
+        recuperarUsuario(id);
       }
     });
   };
 
   // traer los libros borrados
   useEffect(() => {
-    fetchBooks();
+    fetchUsuarios();
   }, []);
 
-  const fetchBooks = async () => {
+  const fetchUsuarios = async () => {
     try {
-      const response = await axios.get(`${bookscapeback}/books/removed`);
-      const selectedFields = response.data.map((book:Book) => ({
-        id_book: book.id_book,
-        title: book.title,
-        price: book.price,
-        image: book.image,
-        deletedAt: book.deletedAt,
+      const response = await axios.get(`${bookscapeback}/users/removed`);
+      const selectedFields = response.data.map((usuario: Usuario) => ({
+        id: usuario.id,
+        email: usuario.email,
+        username: usuario.username,
+        deletedAt: usuario.deletedAt,
       }));
-      
-      setBooksEliminados(selectedFields);
+
+      setUsuarioEliminados(selectedFields);
     } catch (error) {
-      console.error("Error fetching books:", error);
+      console.error("Error fetching usuarios:", error);
     }
   };
-  
+
   return (
     <div>
       <div className={styles2.contenedor}>
@@ -106,13 +109,12 @@ const RecuperarLibro = () => {
             <div className={styles.titulo}>
               <h2>
                 <img src={libros.src} alt="Logo" />
-                Recuperar Libros
+                Recuperar Usuarios
               </h2>
             </div>
             <div className={styles.subTitulo}>
-              <p>Busca y modifica los libros borrados</p>
-              <div className={styles.tabsContainer}>       
-              </div>
+              <p>Busca y modifica los usuarios borrados</p>
+              <div className={styles.tabsContainer}></div>
             </div>
             <div className={styles.resultados}>
               <div className={styles.titulo}></div>
@@ -123,31 +125,29 @@ const RecuperarLibro = () => {
                       <input type="checkbox" name="" id="" />
                       Seleccione
                     </th>
-                    <th>Imagen</th>
-                    <th>Titulo</th>
-                    <th>Valor</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
                     <th>Fecha</th>
                     <th>Recuperar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {booksEliminados.length === 0
+                  {usuarioEliminados.length === 0
                     ? "No hay Libros disponibles"
-                    : booksEliminados.map((book, index) => (
+                    : usuarioEliminados.map((usuario, index) => (
                         <tr key={index}>
                           <td>
                             <input type="checkbox" name="" id="" />
                           </td>
-                          <td className={styles.libro}>
-                            <img src={book.image} alt={book.title} />
-                          </td>
-                          <td>{book.title}</td>
-                          <td>${book.price}</td>
-                          <td>{book.deletedAt}</td>
+                          <td>{usuario.username}</td>
+                          <td>{usuario.email}</td>
+                          <td>{usuario.deletedAt}</td>
                           <td className={styles.selectores}>
                             <button
                               type="button"
-                              onClick={() => confirmarRecuperarLibro (book.id_book) }
+                              onClick={() =>
+                                confirmarRecuperarUsuario(usuario.id)
+                              }
                               className={styles.deletebutton}
                             >
                               <img src={modify.src} alt="Recuperar" />
@@ -168,4 +168,4 @@ const RecuperarLibro = () => {
   );
 };
 
-export default RecuperarLibro;
+export default RecuperarUsuario;
