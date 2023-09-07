@@ -11,7 +11,7 @@ import { useFilterContext } from "@/context/FilterContext";
 import Swal from "sweetalert2";
 
 const DetallesBook = () => {
-  const { user, isAuthenticated() } = useAuthContext();
+  const { user, isAuthenticated } = useAuthContext();
   const [cantidad, setCantidad] = useState(1);
   const { books } = useBookContext();
   const {
