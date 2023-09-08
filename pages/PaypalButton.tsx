@@ -43,7 +43,7 @@ const PaypalButton: React.FC<PaypalButtonInterface> = (props) => {
         const order = await actions.order?.capture();
         console.log("order", order);
 
-        const orderResponse = await axios.post(`${bookscapeback}/orders`, {
+        const orderResponse = await axios.post(`${bookscapeback}/pays/set`, {
           orden: order,
           factura: props.invoice,
           id: user?.id,
