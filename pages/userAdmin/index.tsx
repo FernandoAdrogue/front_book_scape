@@ -4,7 +4,7 @@ import Tabs from "@components/Admin/Tabs";
 import Link from "next/link";
 
 // Tabs Components
-import TabUsuarios from "@/components/UserAdmin/MiPerfil/MiPerfil";
+import TabUsuarios from "@/components/UserAdmin/MiPerfil/usuario";
 import TabLibros from "@/components/UserAdmin/MisLibros/MisLibros";
 import TabPedidos from "@/components/UserAdmin/MisPedidos/MisPedidos";
 import TabPagos from "@/components/UserAdmin/MisPagos/MisPagos";
@@ -42,21 +42,11 @@ const tabs: TabsType = [
   },
   {
     label: (<>
-      <img src={pedidos.src} alt="Logo" className={styles.icono}/>
-      Mis Pedidos
-      </>
-      ),
-    index: 3,
-    Component: TabPedidos,
-
-  },
-  {
-    label: (<>
       <img src={pagos.src} alt="Logo" className={styles.icono}/>
       Mis Pagos
       </>
       ),
-    index: 4,
+    index: 3,
     Component: TabPagos,
    
   }
@@ -79,8 +69,6 @@ export default function Admin() {
             <h3>Mi Cuenta</h3>
             <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs}/></div>
         <div>Si tiene alguna duda puede contactar al Desarrollador BookScape</div>
-        
-        
 
       </div>
     );

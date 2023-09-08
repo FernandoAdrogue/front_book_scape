@@ -55,22 +55,21 @@ const Login = () => {
 
       if (response.data.message === "Login succesfully!") {
         if (response.data.email === "admin@bookscape.net") {
+          login(response.data.token, response.data);
+          router.push("/admin");
+        }
         // Llama a la función login del contexto para establecer el usuario y el token
         // Verificar si hay una URL guardada en localStorage
-// const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
- // if (redirectAfterLogin) {
-        //   // Redirigir al usuario a la URL guardada
-          login(response.data.token, response.data);
-// router.push(redirectAfterLogin);
-          router.push("/admin");
-
-// localStorage.removeItem("redirectAfterLogin"); // Borra la URL guardada
-        } else {
+        // const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
+        // if (redirectAfterLogin) {
+        // //   // Redirigir al usuario a la URL guardada
+        //   router.push(redirectAfterLogin);
+        //   localStorage.removeItem("redirectAfterLogin"); // Borra la URL guardada
+        // } else {
           // Redirigir a una página predeterminada después del inicio de sesión
           login(response.data.token, response.data);
           router.push("/"); // Cambia esto por la URL que desees
         }
-      }
 
       if (response.data === "User not found") {
         guardarError("Usuario no encontrado");
