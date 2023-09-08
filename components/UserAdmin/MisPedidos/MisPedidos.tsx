@@ -33,7 +33,7 @@ const TabPedidos: FC<{}> = () => {
             <tr>
             <td><input type="checkbox" name="" id="" /></td>
             <td>0001</td>
-            <td>Nombres y Apellidos</td>
+            <td>The Count of Monte Cristo</td>
             <td>$15.000</td>
             <td>08/24/2023</td>
             <td>Pendiente</td>

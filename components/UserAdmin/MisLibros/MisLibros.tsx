@@ -132,7 +132,7 @@ const TabLibros: FC<{}> = () => {
                 </td>
                 <td>Alexandre Dumas
                 </td>
-                <td className={styles.selectores}><Link href="/admin"><img src={modify.src} alt="Modificar" /></Link></td>
+                <td className={styles.selectores}><Link href="/resenaLibro/"><img src={modify.src} alt="Modificar" /></Link></td>
                 <td></td>
               
               </tr>

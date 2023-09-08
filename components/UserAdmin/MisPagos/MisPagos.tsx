@@ -35,7 +35,7 @@ const TabPagos: FC<{}> = () => {
             <td><input type="checkbox" name="" id="" /></td>
             <td>01</td>
             <td>01</td>
-            <td>Marian Rojas</td>
+            <td>The Count of Monte Cristo</td>
             <td>$30.78</td>
             <td>24/08/2023</td>
             <td>Aprobada</td>
