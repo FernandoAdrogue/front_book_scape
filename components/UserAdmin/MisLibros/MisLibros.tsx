@@ -110,82 +110,33 @@ const TabLibros: FC<{}> = () => {
         <div className={styles.titulo}>
           <h2>
             <img src={libros.src} alt="Logo" />
-            Libros
+            Mis Libros
           </h2>
-        </div>
-        <div className={styles.subTitulo}>
-          <p>Busca y modifica las Ordenes de Pedidos </p>
-          <div className={styles.tabsContainer}>
-            <button
-              className={styles.button}
-              type="submit"
-              onClick={() => confirmarAgregarLibro()}
-            >
-              + Nuevo Libro
-            </button>
-            <Link href="/admin/RecuperarLibro">
-              <button className={styles.button} type="submit">
-                Recuperar Libros
-              </button>
-            </Link>
-          </div>
         </div>
         <div className={styles.resultados}>
           <div className={styles.titulo}></div>
           <table className={styles.tabla}>
             <thead>
               <tr>
-                <th>
-                  <input type="checkbox" name="" id="" />
-                  Seleccione
-                </th>
                 <th>Imagen</th>
                 <th>Titulo</th>
                 <th>Autor</th>
-                <th>Valor</th>
-                <th>Fecha</th>
-                <th>Modifiar</th>
-                <th>Eliminar</th>
+                <th>Reseña</th>
+                <th>Descargar</th>
               </tr>
             </thead>
             <tbody>
-              {books.length === 0
-                ? "No hay Libros disponibles"
-                : books.map((book, index) => (
-                    <tr key={index}>
-                      <td>
-                        <input type="checkbox" name="" id="" />
-                      </td>
-                      <td className={styles.libro}>
-                        <img src={book.image} alt={book.title} />
-                      </td>
-                      <td>{book.title}</td>
-                      <td>
-                        {book.Authors.map((obj: any, index: any) => (
-                          <span key={index}>{obj.name}</span>
-                        ))}
-                      </td>
-                      <td>${book.price}</td>
-                      <td>{book.published_date}</td>
-                      <td className={styles.selectores}>
-                        <button
-                          type="button"
-                          onClick={() => handleRedireccionar(book)}
-                          className={styles.deletebutton}
-                        >
-                          <img src={modify.src} alt="Modificar" />
-                        </button>
-                      </td>
-                      <td className={styles.selectores}>
-                        <button
-                          className={styles.deletebutton}
-                          onClick={() => confirmarEliminarLibro(book.id_book)}
-                        >
-                          <img src={del.src} alt="Eliminar" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+              <tr>
+                <td></td>
+                <td>The Count of Monte Cristo
+                </td>
+                <td>Alexandre Dumas
+                </td>
+                <td className={styles.selectores}><Link href="/resenaLibro/"><img src={modify.src} alt="Modificar" /></Link></td>
+                <td></td>
+              
+              </tr>
+                  
             </tbody>
           </table>
         </div>

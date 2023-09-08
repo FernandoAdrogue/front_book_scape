@@ -33,7 +33,7 @@ type Book = {
   Language: Language;
 };
 
-const EditarProducto = () => {
+const ResenaLibro = () => {
   const router = useRouter();
 
   const { editarBook, editBooks, setEditarBook } = useCrudBookContext();
@@ -111,30 +111,30 @@ const EditarProducto = () => {
     // Aquí puedes enviar los cambios o realizar cualquier otra lógica
     editBooks(editBook); // toma el nuevo producto
     setEditarBook(null);
-    router.push("/admin");
+    router.push("/UserAdmin");
   };
 
   return (
     <div className={styles.contenedor}>
       <div className={styles.liner}>
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href="/user">
             <img src={logo.src} alt="Logo" />
           </Link>
         </div>
       </div>
       <div>
-        <h3>Panel de Administrador</h3>
+        <h3>Mi Cuenta</h3>
       </div>
       <div className={styles.menu}>
         <div className={styles.container}>
           <div>
-            <h2>Editar Libro</h2>
+            <h2>Calificar Mi Libro</h2>
             <img src={editBook.image} />
           </div>
           <form onSubmit={submitEditarLibro}>
             <div>
-              <label>Titulo</label>
+          
               <input
                 type="text"
                 placeholder="Titulo"
@@ -155,44 +155,13 @@ const EditarProducto = () => {
                 className={styles.input}
               />
             </div>
+        
+            
             <div>
-              <label>Autor</label>
+              <label>Reseña</label>
               <input
                 type="text"
-                placeholder="Autor"
-                name="Authors"
-                value={editBook.Authors[0] ? editBook.Authors[0].name : ""}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
-            </div>
-            <div>
-              <label>Precio</label>
-              <input
-                type="number"
-                placeholder="Precio"
-                name="price"
-                value={editBook.price}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
-            </div>
-            <div>
-              <label>Año de publicación</label>
-              <input
-                type="number"
-                placeholder="Año de publicación"
-                name="published_date"
-                value={editBook.published_date}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
-            </div>
-            <div>
-              <label>Descripción</label>
-              <input
-                type="text"
-                placeholder="descripción"
+                placeholder="Escribe tus Comentarios"
                 name="description"
                 value={editBook.description}
                 onChange={onChangeFormulario}
@@ -200,38 +169,11 @@ const EditarProducto = () => {
               />
             </div>
             <div>
-              <label>Categorías</label>
-              <input
-                type="text"
-                placeholder="Categorías"
-                name="Tags"
-                value={editBook.Tags[0] ? editBook.Tags[0].name : ""}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
+              <label>Puntuación</label>
+                <input type="number" />   ★   ★   ★   ★  ★
             </div>
-            <div>
-              <label>Cantidad de paginas</label>
-              <input
-                type="number"
-                placeholder="Cantidad de paginas"
-                name="page_count"
-                value={editBook.page_count}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
-            </div>
-            <div>
-              <label>Lenguaje</label>
-              <input
-                type="text"
-                placeholder="Lenguaje"
-                name="Language"
-                value={editBook.Language.language}
-                onChange={onChangeFormulario}
-                className={styles.input}
-              />
-            </div>
+           
+            <br />
             {/* agregar mas campos */}
             <button className={styles.button} type="submit">
               Guardar Cambios
@@ -240,7 +182,7 @@ const EditarProducto = () => {
         </div>
         <div className={styles.container}  >
         <br />
-        <Link href='/admin' className={styles.button3} >Regresar Menú</Link>
+        <Link href='/userAdmin' className={styles.button3} >Regresar Menú</Link>
         <br /><br />
          Si tiene alguna duda puede contactar al Desarrollador BookScape
         </div>
@@ -249,4 +191,4 @@ const EditarProducto = () => {
   );
 };
 
-export default EditarProducto;
+export default ResenaLibro;

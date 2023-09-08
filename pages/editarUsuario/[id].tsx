@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useUsuarioContext } from "@/context/UsuarioCrudContext";
 import { useRouter } from "next/router";
 import styles from "./edtitarUsuario.module.css";
+import Link from "next/link";
+import logo from "../../public/images/BookScapeLogo.png";
 
 interface Usuario {
   id: string;
@@ -49,12 +51,6 @@ const EditarUsuario = () => {
       newErrors.email = "El correo electrónico es obligatorio";
     }
 
-    // validar el password
-  if (!editarUsuario?.newPassword) {
-    newErrors.newPassword = "El password es obligatorio";
-  } else if (editarUsuario.newPassword.length < 6) {
-    newErrors.newPassword = "Se requiere un mínimo de 6 caracteres";
-  }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Devuelve true si no hay errores
@@ -81,14 +77,20 @@ const EditarUsuario = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Editar Usuario</h2>
+    <div className={styles.contenedor}>
+       <div  className={styles.liner}><div className={styles.logo}>
+          <Link href="/">
+            <img src={logo.src} alt="Logo" />
+          </Link>
+        </div>       
       </div>
+       <h2>Editar Usuario</h2>
+      <div className={styles.container}>
       <form onSubmit={submitEditarUsuario}>
         <div>
           <label>Usuario</label>
           <input
+          className={styles.input}
             type="text"
             placeholder="Usuario"
             name="username"
@@ -100,17 +102,19 @@ const EditarUsuario = () => {
         <div>
           <label>Nueva Contraseña</label>
           <input
+          className={styles.input}
             type="text"
             placeholder="Nueva contraseña"
             name="newPassword"
             value={editUsuario.newPassword}
             onChange={onChangeFormulario}
           />
-          {errors.newPassword && <p className={styles.error}>{errors.newPassword}</p>}
+          
         </div>
         <div>
           <label>Correo Electrónico</label>
           <input
+          className={styles.input}
             type="text"
             placeholder="email"
             name="email"
@@ -120,8 +124,15 @@ const EditarUsuario = () => {
           {errors.email && <p className={styles.error}>{errors.email}</p>}
         </div>
         {/* agregar mas campos */}
-        <button type="submit">Guardar Cambios</button>
-      </form>
+        <button className={styles.button} type="submit">Guardar Cambios</button>
+      </form>      
+      <div >
+        <br />
+        <Link href='/admin' className={styles.button3} >Regresar Menu principal</Link>
+        <br /><br />
+         Si tiene alguna duda puede contactar al Desarrollador BookScape
+        </div>
+    </div>
     </div>
   );
 };

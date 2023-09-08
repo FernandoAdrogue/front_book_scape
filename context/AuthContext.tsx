@@ -5,6 +5,7 @@ type User = {
   id: string;
   email: string;
   username: string;
+  admin: boolean;
   token: string;
   shoppingcartId: {
     cart_id: number; // Cambia 'number' si el tipo real es diferente
@@ -78,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const isAuthenticated = () => {
-    return user?.token !== null;
+    return token !== null;
   };
 
   // Creación del objeto "contextValue" con la información del contexto

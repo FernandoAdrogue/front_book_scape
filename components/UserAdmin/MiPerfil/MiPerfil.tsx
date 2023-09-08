@@ -66,63 +66,49 @@ const TabUsuarios: FC<{}> = () => {
         <div className={styles.titulo}>
           <h2>
             <img src={usuariosImg.src} alt="Logo" />
-            Usuarios
+            Mi perfil
           </h2>
           </div>
         <div className={styles.subTitulo}>
-          <p>Busca y modifica los usuarios </p>
-          <Link href="/admin/RecuperarUsuario">
-            <button className={styles.button} type="submit">
-              Reparar Usuarios
-            </button>
-          </Link>
+          <p>Modifica tu perfil </p>
+          
         </div>
         <div className={styles.resultados}>
-          <div className={styles.titulo}></div>
-          <table className={styles.tabla}>
-            <thead>
-              <tr>
-                <th>
-                  <input type="checkbox" name="" id="" />
-                  Seleccione
-                </th>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Modifiar</th>
-                <th>Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.length === 0
-                ? "No hay Usuarios disponibles"
-                : usuarios.map((usuario) => (
-                    <tr key={usuario.id}>
-                      <td>
-                        <input type="checkbox" name="" id="" />
-                      </td>
-                      <td>{usuario.username}</td>
-                      <td>{usuario.email}</td>
-                      <td className={styles.selectores}>
-                      <button
-                          type="button"
-                          onClick={() => handleRedireccionar(usuario)}
-                          className={styles.deletebutton}
-                        >
-                          <img src={modify.src} alt="Modificar" />
-                        </button>
-                      </td>
-                      <td className={styles.selectores}>
-                      <button
-                          className={styles.deletebutton}
-                          onClick={() => confirmarEliminarUsuario(usuario.id)}
-                        >
-                          <img src={del.src} alt="Eliminar" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-            </tbody>
-          </table>
+        <form>
+        <div>
+          <label>Usuario</label>
+          <input
+          className={styles.input}
+            type="text"
+            placeholder="Usuario"
+            name="username"
+
+          />
+        </div>
+        <div>
+          <label>Nueva Contraseña</label>
+          <input
+          className={styles.input}
+            type="text"
+            placeholder="Nueva contraseña"
+            name="newPassword"
+          />
+          
+        </div>
+        <div>
+          <label>Correo Electrónico</label>
+          <input
+          className={styles.input}
+            type="text"
+            placeholder="email"
+            name="email"
+
+          />
+        </div>
+        {/* agregar mas campos */}
+        <button className={styles.button} type="submit">Guardar Cambios</button>
+      </form>   
+          
         </div>
       </div>
     </Fragment>
