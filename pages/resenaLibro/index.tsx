@@ -111,14 +111,14 @@ const ResenaLibro = () => {
     // Aquí puedes enviar los cambios o realizar cualquier otra lógica
     editBooks(editBook); // toma el nuevo producto
     setEditarBook(null);
-    router.push("/admin");
+    router.push("/UserAdmin");
   };
 
   return (
     <div className={styles.contenedor}>
       <div className={styles.liner}>
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href="/user">
             <img src={logo.src} alt="Logo" />
           </Link>
         </div>
