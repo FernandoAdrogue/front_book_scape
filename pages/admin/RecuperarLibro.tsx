@@ -107,10 +107,11 @@ const RecuperarLibro = () => {
               <h2>
                 <img src={libros.src} alt="Logo" />
                 Recuperar Libros
-              </h2>
+              </h2><Link href='/admin' className={styles.button3}>Regresar Menú</Link>
             </div>
             <div className={styles.subTitulo}>
-              <p>Busca y modifica los libros borrados</p>
+            <p>Recupera libros borrados</p>
+              
               <div className={styles.tabsContainer}>       
               </div>
             </div>

@@ -4,10 +4,22 @@
     justify-content: center;
     width: 100%;
     border-radius: 10px;
-
-
-
 }
+
+    .button3 {
+      width: 9%;
+      background-color: #757575;
+      color: #fff;
+      padding: 5px 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .button3:hover {
+      background-color: #494848;
+    }
 
 .titulo{
     background-color: white;
