@@ -8,6 +8,7 @@ const bookscapeback = process.env.NEXT_PUBLIC_BOOKSCAPEBACK;
 interface PaypalButtonInterface {
   totalValue: string;
   invoice: string;
+  selectBook: number[];
 }
 
 const PaypalButton: React.FC<PaypalButtonInterface> = (props) => {
@@ -20,6 +21,7 @@ const PaypalButton: React.FC<PaypalButtonInterface> = (props) => {
       totalValue: props.totalValue,
       invoice: props.invoice,
       userId: user?.id,
+      selectBook: props.selectBook,
     };
 
     localStorage.setItem("orderData", JSON.stringify(orderData));

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import PaypalButton from "../PaypalButton";
+import PaypalButton from '../PaypalButton';
 import { useAuthContext } from "@/context/AuthContext";
 import { useCartBdContext } from "@/context/CartBdContext";
 import styles from "./checkout.module.css";
@@ -162,12 +162,15 @@ const CheckoutPage: React.FC = () => {
               </div>{" "}
             </section>
           </div>
+            
           {/* Mostrar el botón de PayPal después de la confirmación */}
           {confirmed ? (
             <PaypalButton
               totalValue={totalBd.toFixed(2)}
               invoice={invoiceNumber}
+              selectBook={Object.keys(selectedItems).map(Number)}
             />
+            
           ) : null}
         </div>
       </div>
