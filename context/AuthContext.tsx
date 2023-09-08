@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 type User = {
-  message: string;
-  id: string;
+  message: string | undefined;
+  id: string | undefined;
   email: string;
   username: string;
-  admin: boolean;
-  token: string;
+  admin: boolean | undefined;
+  token: string | undefined;
   shoppingcartId: {
-    cart_id: number; // Cambia 'number' si el tipo real es diferente
-  };
+      cart_id: number;
+  } | undefined;
 };
 
 interface AuthContextType {

@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment, useState, useEffect } from "react";
 import libros from "../../../public/images/🦆 icon _categories major_.png";
 import modify from "../../../public/images/🦆 icon _Pen Square_.png";
 import del from "../../../public/images/🦆 icon _Times Circle_.png";
@@ -9,6 +9,7 @@ import { useBookContext } from "@/context/BookContext";
 import { useCrudBookContext } from "@/context/CrudBookContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import { useAuthContext } from "@/context/AuthContext";
 
 type Language = {
   language: string;
@@ -40,57 +41,16 @@ type Book = {
 };
 
 const TabLibros: FC<{}> = () => {
+  const { user, isAuthenticated } = useAuthContext();
   const { books } = useBookContext();
   const { deleteBook, setEditarBook } = useCrudBookContext();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<number>(1);
   
-
-  // Confirmar si desea eliminarlo
-  const confirmarEliminarLibro = (id: any) => {
-    // preguntar al usuario
+  const confirmarAgregarReseña = (book:Book) => {
     Swal.fire({
       title: "¿Estas seguro?",
-      text: "Un libro que se elimina no se puede recuperar",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminar!",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // pasar a eliminarlo
-        deleteBook(id);
-      }
-    });
-  };
-
-  // Función para realizar una redirección
-  const handleRedireccionar = (book: Book) => {
-    Swal.fire({
-      title: "¿Estas seguro?",
-      text: `Vas a editar el libro ${book.title} de ${book.Authors.map(
-        (author) => author.name
-      )}`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, editar!",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setEditarBook(book);
-        router.push(`/editarLibro/${book.id_book}`);
-      }
-    });
-  };
-
-  const confirmarAgregarLibro = () => {
-    Swal.fire({
-      title: "¿Estas seguro?",
-      text: "Vas agregar un nuevo libro",
+      text: "Vas agregar una reseña a un libro",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -99,10 +59,31 @@ const TabLibros: FC<{}> = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        router.push(`/nuevoLibro`);
+        router.push(`/resenaLibro/${book.id_book}`);
       }
     });
   };
+
+  const userId = user?.id; // Reemplaza esto con la lógica para obtener el ID del usuario
+
+  // Estado para almacenar los datos recuperados del almacenamiento local
+  const [bookPays, setBookPays] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Construir la clave para el usuario específico
+    const userLocalStorageKey = `bookPays_${userId}`;
+
+    // Obtener los datos del almacenamiento local
+    const userDataString = localStorage.getItem(userLocalStorageKey);
+
+    if (userDataString) {
+      // Si se encuentran datos para el usuario, parsearlos y actualizar el estado
+      const userData = JSON.parse(userDataString);
+      setBookPays(userData);
+    }
+  }, [userId]); 
+
+  const selectedBooks = books.filter((book) => bookPays.includes(book.id_book));
 
   return (
     <Fragment>
@@ -126,16 +107,28 @@ const TabLibros: FC<{}> = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td>The Count of Monte Cristo
-                </td>
-                <td>Alexandre Dumas
-                </td>
-                <td className={styles.selectores}><Link href="/resenaLibro/"><img src={modify.src} alt="Modificar" /></Link></td>
-                <td></td>
-              
+            {selectedBooks.length === 0
+                ? "No hay Libros disponibles"
+                : selectedBooks.map((book, index) => (
+                    <tr key={index}>
+                      <td className={styles.libro}>
+                        <img src={book.image} alt={book.title} />
+                      </td>
+                      <td>{book.title}</td>
+                      <td>
+                        {book.Authors.map((obj: any, index: any) => (
+                          <span key={index}>{obj.name}</span>
+                        ))}
+                      </td>
+                      <td className={styles.selectores}>
+                      <button
+                          className={styles.deletebutton}
+                          onClick={() => confirmarAgregarReseña(book)}
+                        >
+                       <img src={modify.src} alt="Modificar" />
+                       </button></td>
               </tr>
+              ))}
                   
             </tbody>
           </table>
