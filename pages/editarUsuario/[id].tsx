@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import styles from "./edtitarUsuario.module.css";
 import Link from "next/link";
 import logo from "../../public/images/BookScapeLogo.png";
+import { useAuthContext } from "@/context/AuthContext";
 
 interface Usuario {
   id: string;
@@ -18,10 +19,23 @@ interface Errors {
   newPassword?: string;
 }
 
+type Editado = {
+  message: string | undefined;
+  id: string | undefined;
+  email: string;
+  username: string;
+  admin: boolean | undefined;
+  token: string | undefined;
+  shoppingcartId: {
+      cart_id: number;
+  } | undefined;
+}
+
 const EditarUsuario = () => {
   const router = useRouter();
 
   const { editarUsuario, editUsuarios, setEditarUsuario } = useUsuarioContext();
+  const { user, isAuthenticated, setUser } = useAuthContext();
 
   // Nuevo state de libros
   const [editUsuario, setEditUsuario] = useState<Usuario>({
@@ -71,7 +85,18 @@ const EditarUsuario = () => {
     // Aquí puedes enviar los cambios o realizar cualquier otra lógica
     if (validateForm()) {
       editUsuarios(editUsuario);
-      setEditarUsuario(null);
+  
+      const editado: Editado = {
+        message: user?.message,
+        id: user?.id,
+        email: editUsuario.email,
+        username: editUsuario.username,
+        admin: user?.admin,
+        token: user?.token,
+        shoppingcartId: user?.shoppingcartId,
+      }
+      setUser(editado)
+      localStorage.setItem("authUser", JSON.stringify(editado));
       router.push("/admin");
     }
   };
