@@ -74,10 +74,40 @@ const TabUsuarios: FC<{}> = () => {
           
         </div>
         <div className={styles.resultados}>
-          <div ></div>
-          <div>Nombres:</div>
-          <div>Email</div>
-          <div>Contraseña</div>
+        <form>
+        <div>
+          <label>Usuario</label>
+          <input
+          className={styles.input}
+            type="text"
+            placeholder="Usuario"
+            name="username"
+
+          />
+        </div>
+        <div>
+          <label>Nueva Contraseña</label>
+          <input
+          className={styles.input}
+            type="text"
+            placeholder="Nueva contraseña"
+            name="newPassword"
+          />
+          
+        </div>
+        <div>
+          <label>Correo Electrónico</label>
+          <input
+          className={styles.input}
+            type="text"
+            placeholder="email"
+            name="email"
+
+          />
+        </div>
+        {/* agregar mas campos */}
+        <button className={styles.button} type="submit">Guardar Cambios</button>
+      </form>   
           
         </div>
       </div>
