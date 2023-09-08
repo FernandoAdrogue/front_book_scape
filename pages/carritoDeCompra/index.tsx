@@ -153,11 +153,7 @@ const CarritoDeCompra = () => {
                       </div>
                       <div>
                         <h2>{item.title}</h2>
-                        <h3>
-                          {item.Authors && item.Authors.length > 0
-                            ? item.Authors.map((author) => author.name)
-                            : "Sin autores"}
-                        </h3>
+                        <h3>{item.authors}</h3>
                         <h3>
                           Valor: $ {(item.price * item.cantidad).toFixed(2)}
                         </h3>

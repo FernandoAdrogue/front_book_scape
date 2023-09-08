@@ -27,9 +27,13 @@ export default function UserAdmin() {
       ]}
     />
      </div>
-      <div className={styles.der}> Bienvenido Usuario: </div>
-      
-    
+      <div className={styles.der}> Bienvenido Usuario: 
+      <div>Book Scape User
+        <br/>
+      </div>
+      <div>Estos son tus compras de libro</div>
+      </div>
+
     
     </div>
 

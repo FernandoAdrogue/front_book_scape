@@ -44,8 +44,8 @@ const TabPagos: FC<{}> = () => {
             <td>$30.78</td>
             <td>24/08/2023</td>
             <td>Aprobada</td>
-            <td className={styles.selectores}><Link href="/"><img src={modify.src} alt="Modificar" /></Link></td>
-            <td className={styles.selectores}><Link href="/"><img src={del.src} alt="Eliminar" /></Link></td>
+            <td className={styles.selectores}><Link href="/admin"><img src={modify.src} alt="Modificar" /></Link></td>
+            <td className={styles.selectores}><Link href="/admin"><img src={del.src} alt="Eliminar" /></Link></td>
             </tr>
           </tbody>
         </table>

@@ -110,11 +110,12 @@ const RecuperarUsuario = () => {
               <h2>
                 <img src={libros.src} alt="Logo" />
                 Recuperar Usuarios
-              </h2>
+              </h2><Link href='/admin' className={styles.button3}>Regresar Menú</Link>
+              
             </div>
             <div className={styles.subTitulo}>
-              <p>Busca y modifica los usuarios borrados</p>
-              <div className={styles.tabsContainer}></div>
+              <p>Recupera los usuarios borrados</p>
+              
             </div>
             <div className={styles.resultados}>
               <div className={styles.titulo}></div>
