@@ -22,7 +22,7 @@ type Editado = {
   token: string | undefined;
   shoppingcartId: {
       cart_id: number;
-  } | undefined;
+  };
 }
 
 const TabUsuarios: FC<{}> = () => {
