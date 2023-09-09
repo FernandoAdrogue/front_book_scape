@@ -9,7 +9,7 @@ type User = {
   token: string | undefined;
   shoppingcartId: {
       cart_id: number;
-  };
+  } | undefined;
 };
 
 interface AuthContextType {
